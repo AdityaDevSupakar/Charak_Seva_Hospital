@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Slot</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 20px;
+            background-color: rgb(112, 131, 250);
+            overflow-x: hidden;
+
+        }
+
+        .frameset {
+            border: 1px solid navy;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: rgb(58, 192, 250);
+
+        }
+
+        .age-label {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 class="text-center mb-3 bg-info"><u>BOOK APPOINTMENT</u></h2>
+
+        <!-- Form starts -->
+        <form id="registrationForm" onsubmit="return validateForm()">
+            <!-- Top FrameSet: Patient Details -->
+            <div class="frameset">
+                <h6>NAME :</h6>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="firstname" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="middlename">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="lastname" required>
+                    </div>
+                </div>
+                <h6>FATHER's NAME :</h6>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="firstname" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="middlename">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="lastname" required>
+                    </div>
+                </div>
+                <h6>MOTHER's NAME :</h6>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="firstname" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="middlename">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="lastname" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <h6>GENDER :</h6>
+                        <select class="form-control" id="gender" required>
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span class="error" id="genderError"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>DATE OF BIRTH :</h6>
+                        <input type="date" class="form-control" id="dob" required onchange="calculateAge()">
+                        <span class="error" id="dobError"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>CURRENT AGE :</h6>
+                        <input type="text" class="form-control" id="age" readonly>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <h6>MOBILE :</h6>
+                        <input type="number" class="form-control" id="mobile" maxlength="10" required>
+                    </div>
+                    <div class="col-md-8">
+                        <h6>ADDRESS :</h6>
+                        <input type="text" class="form-control" id="alt-mobile" maxlength="10">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <h6>REASON OF VISIT :</h6>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        placeholder="Start writing your reason from here." required></textarea>
+                </div>
+            </div>
+
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100"><b>BOOK SLOT</b></button>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript to calculate age and validate form -->
+    <script>
+        function calculateAge() {
+            const dob = document.getElementById('dob').value;
+            if (dob) {
+                const today = new Date();
+                const birthDate = new Date(dob);
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                document.getElementById('age').value = age;
+            }
+        }
+
+        function validateForm() {
+            let isValid = true;
+            const requiredFields = ['name', 'fathers-name', 'mothers-name', 'gender', 'dob', 'mobile', 'pincode', 'username', 'password', 'confirm-password', 'photo'];
+            const errorMessages = {
+                name: "Please enter your name.",
+                "fathers-name": "Please enter your father's name.",
+                "mothers-name": "Please enter your mother's name.",
+                gender: "Please select your gender.",
+                dob: "Please enter your date of birth.",
+                mobile: "Please enter a valid 10-digit mobile number.",
+            };
+
+            // Validate required fields
+            requiredFields.forEach(function (fieldId) {
+                const field = document.getElementById(fieldId);
+                const errorSpan = document.getElementById(fieldId + 'Error');
+                if (field && field.value === "") {
+                    isValid = false;
+                    errorSpan.textContent = errorMessages[fieldId];
+                } else {
+                    errorSpan.textContent = "";
+                }
+            });
+
+            // Additional validation
+            const mobile = document.getElementById('mobile').value;
+            if (mobile && (mobile.length !== 10 || isNaN(mobile))) {
+                document.getElementById('mobileError').textContent = "Please enter a valid 10-digit mobile number.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
