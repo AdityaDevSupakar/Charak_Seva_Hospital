@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Request Form</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #d6336c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c1275c;
+        }
+
+        .otp-section,
+        .details-section {
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            input,
+            button {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Request Blood</h2>
+        <form id="bloodRequestForm">
+            <!-- Step 1: Enter Mobile Number -->
+            <div class="mobile-section">
+                <label for="mobile">Enter Mobile Number</label>
+                <input type="text" id="mobile" placeholder="Enter your mobile number" required>
+                <span class="error" id="mobileError"></span>
+                <button type="button" id="sendOtpBtn" onclick="validateMobile()">Send OTP</button>
+            </div>
+
+            <!-- Step 2: Verify OTP -->
+            <div class="otp-section">
+                <label for="otp">Enter OTP</label>
+                <input type="text" id="otp" placeholder="Enter the OTP" required>
+                <span class="error" id="otpError"></span>
+                <button type="button" id="verifyOtpBtn">Verify OTP</button>
+            </div>
+
+            <!-- Step 3: Enter Patient Details -->
+            <div class="details-section">
+                <label for="name">Patient Name</label>
+                <input type="text" id="name" placeholder="Enter patient name" required>
+
+                <label for="bloodGroup">Blood Group</label>
+                <input type="text" id="bloodGroup" placeholder="Enter blood group" required>
+
+                <label for="hospital">Hospital</label>
+                <input type="text" id="hospital" placeholder="Enter hospital name" required>
+
+                <button type="submit">Submit Request</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const mobileSection = document.querySelector('.mobile-section');
+        const otpSection = document.querySelector('.otp-section');
+        const detailsSection = document.querySelector('.details-section');
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+        const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+        const mobileError = document.getElementById('mobileError');
+        const otpError = document.getElementById('otpError');
+
+        sendOtpBtn.addEventListener('click', () => {
+            const mobile = document.getElementById('mobile').value;
+            mobileError.textContent = '';
+
+            if (!validateMobile(mobile)) {
+                mobileError.textContent = 'Invalid mobile number';
+            } else {
+                otpSection.style.display = 'block';
+                // Here you can add your logic to send OTP
+                alert("OTP sent to " + mobile);
+            }
+        });
+
+        verifyOtpBtn.addEventListener('click', () => {
+            const otp = document.getElementById('otp').value;
+            otpError.textContent = '';
+
+            if (otp === '1234') {
+                detailsSection.style.display = 'block';
+                otpSection.style.display = 'none';
+                mobileSection.style.display = 'none';
+            } else {
+                otpError.textContent = 'Invalid OTP';
+            }
+        });
+
+        document.getElementById('bloodRequestForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Blood request submitted successfully!');
+
+        });
+
+        function validateMobile(mobile) {
+            return /^[0-9]{10}$/.test(mobile);
+        }
+    </script>
+</body>
+
+</html>

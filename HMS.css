@@ -205,55 +205,17 @@
      color: rgb(0, 0, 0);
  }*/
 
- h2:hover {
-     /* color: rgb(15, 25, 223); */
-     font-weight: bold;
- }
-
  .services-head {
      text-align: center;
      background-color: aqua;
  }
 
- .services-top,
- .services-middle,
- .services-bottom,
- .services-down {
-     display: flex;
-     justify-content: space-around;
-     position: relative;
- }
+
 
  .specialities-head {
      text-align: center;
  }
 
- .specialities {
-     justify-content: space-around;
-     display: flex;
-     text-align: center;
-
- }
-
- /* .specialities:hover {
-     /* background-color: aqua; 
-     transition-property: all;
- } 
-
- /* .contact-us {
-     display: flex;
-     position: relative;
-     background-color: rgb(36, 35, 35);
-     color: white;
- }
-
- .right-contact-us,
- .left-contact-us {
-     text-align: center;
-     width: 50vw;
-     position: relative;
-     display: block;
- } */
  .row {
      justify-content: space-around;
  }

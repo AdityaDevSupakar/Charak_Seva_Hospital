@@ -10,7 +10,7 @@
     <style>
         body {
             margin: 20px;
-            background-color: rgb(97, 200, 245);
+
             overflow-x: hidden;
 
         }
@@ -19,7 +19,7 @@
             border: 1px solid navy;
             padding: 20px;
             margin-bottom: 20px;
-            background-color: #10ebf1;
+
 
         }
 
@@ -31,19 +31,24 @@
         .error {
             color: red;
         }
+
+        input {
+            border: 1px solid red;
+            border-radius: 3px;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <h2 class="text-center mb-4 bg-danger"><u>REGISTRATION FORM</u></h2>
+        <h2 class="text-center mb-3 "><u>REGISTRATION FORM</u></h2>
 
         <!-- Form starts -->
         <form id="registrationForm" onsubmit="return validateForm()">
             <!-- Top FrameSet: Patient Details -->
             <div class="frameset">
-                <h4>Patient Details</h4>
+                <h3>Patient Details</h3>
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="name" class="form-label">Name</label>
@@ -103,9 +108,9 @@
                 </div>
             </div>
 
-            <!-- Middle FrameSet: Address Details -->
+
             <div class="frameset">
-                <h4>Address Details</h4>
+                <h3>Address Details</h3>
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="village" class="form-label">Village</label>
@@ -138,9 +143,9 @@
                 </div>
             </div>
 
-            <!-- Bottom FrameSet: Login Details -->
+
             <div class="frameset">
-                <h4>Login Details</h4>
+                <h3>Login Details</h3>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="username" class="form-label">Username</label>

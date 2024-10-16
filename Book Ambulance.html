@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Ambulance</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="HMS.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            display: block;
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-top">
+            <div class="left-top-header">
+                <div class="first"></div>
+                <div class="second"></div>
+                <div class="third"></div>
+                <div class="fourth"></div>
+                <div class="fifth"></div>
+                <div class="sixth"></div>
+                <div class="seventh"></div>
+                <div class="eighth"></div>
+                <div class="nineth"></div>
+                <div class="tenth"></div>
+                <div class="eleventh"></div>
+                <div class="tweveth"></div>
+            </div>
+            <div class="right-top-header">
+                <a class="navbar-brand" href="#"><i class="fa fa-keyboard-o"
+                        style="font-size:28px;color:black;padding:4px">Eng/हिंदी</i></a>
+            </div>
+
+        </div>
+        <hr>
+    </header>
+    <h1 class="text-center"><u><b>Welcome to <span class="text-primary">CHARAK SEVA HOSPITAL</b></u></span></h1><br>
+    <div class="container">
+        <h2 class="text-center mb-4">Book an Ambulance</h2>
+
+
+        <div id="step-1">
+            <form id="mobileForm">
+                <div class="mb-3">
+                    <label for="mobileNumber" class="form-label">Enter Mobile Number</label>
+                    <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter mobile number" required>
+                </div><br><br>
+                <button type="submit" class="btn btn-primary w-100">Get OTP</button>
+            </form>
+        </div>
+
+
+        <div id="step-2" style="display: none;">
+            <form id="otpForm">
+                <div class="mb-3">
+                    <label for="otp" class="form-label">Enter OTP</label>
+                    <input type="text" class="form-control" id="otp" placeholder="Enter OTP" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Verify OTP</button>
+            </form>
+        </div>
+
+        <div id="step-3" style="display: none;">
+            <form id="bookingForm">
+                <div class="mb-3">
+                    <label for="bookerName" class="form-label">Booker's Name</label>
+                    <input type="text" class="form-control" id="bookerName" placeholder="Enter your name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" placeholder="Enter your location" required>
+                </div>
+                <button type="submit" class="btn btn-danger w-100">Book Ambulance</button>
+            </form>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const step3 = document.getElementById('step-3');
+
+        document.getElementById('mobileForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const mobileNumber = document.getElementById('mobileNumber').value;
+
+            // Check if the mobile number is exactly 10 digits and contains only numbers
+            if (/^\d{10}$/.test(mobileNumber)) {
+                alert('OTP sent to ' + mobileNumber);
+                step1.style.display = 'none';
+                step2.style.display = 'block';
+            } else {
+                alert('Invalid Mobile Number. Please enter exactly 10 digits.');
+            }
+        });
+
+        document.getElementById('otpForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const otp = document.getElementById('otp').value;
+
+            if (otp === '1234') {
+                alert('OTP verified successfully');
+                step2.style.display = 'none';
+                step3.style.display = 'block';
+            } else {
+                alert('Invalid OTP, please try again.');
+            }
+        });
+
+        document.getElementById('bookingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const bookerName = document.getElementById('bookerName').value;
+            const location = document.getElementById('location').value;
+
+            alert('Ambulance booked successfully for ' + bookerName + ' at ' + location);
+        });
+    </script>
+
+
+
+    <!-- 
+    <script>
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const step3 = document.getElementById('step-3');
+
+
+        document.getElementById('mobileForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const mobileNumber = document.getElementById('mobileNumber').value;
+            if (moblieNumber = 10) {
+
+
+                alert('OTP sent to ' + mobileNumber);
+            }
+            else {
+                alert('Invalid Number');
+            }
+
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+        });
+
+
+        document.getElementById('otpForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const otp = document.getElementById('otp').value;
+
+
+            if (otp === '1234') {
+                alert('OTP verified successfully');
+                step2.style.display = 'none';
+                step3.style.display = 'block';
+            } else {
+                alert('Invalid OTP, please try again.');
+            }
+        });
+
+
+        document.getElementById('bookingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const bookerName = document.getElementById('bookerName').value;
+            const location = document.getElementById('location').value;
+
+
+            alert('Ambulance booked successfully for ' + bookerName + ' at ' + location);
+        });
+    </script> -->
+
+</body>
+
+</html>
