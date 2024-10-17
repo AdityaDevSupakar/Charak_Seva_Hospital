@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Staff</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="HMS.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <div class="header-top">
+            <!-- Remove unnecessary empty divs -->
+        </div>
+        <hr>
+    </header>
+    <div class="container">
+        <h1 class="text-center mb-3"><u>ADD STAFF</u></h1><br>
+
+        <form id="registrationForm">
+            <div class="frameset">
+                <div class="col-md-12 d-flex flex-column align-items-center">
+                    <label for="profile" class="form-label">
+                        <i class="fa fa-id-badge" aria-hidden="true" style="font-size: 108px;"></i>
+                    </label>
+                    <input type="file" class="form-control" id="profile" style="width: 100px;">
+                </div>
+
+                <br>
+                <h6>FULL NAME :</h6>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <select class="form-control" id="salutation" required>
+                            <option value="" disabled selected>Salutation</option>
+                            <option value="MR">MR</option>
+                            <option value="MRS">MRS</option>
+                            <option value="SHRIMAN">SHRIMAN</option>
+                            <option value="SHRIMATI">SHRIMATI</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="firstname" placeholder="First Name" required>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="lastname" placeholder="Last Name" required>
+                    </div>
+                </div>
+            </div>
+
+            <h6>FATHER's NAME :</h6>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="fatherFirstname" placeholder="First Name" required>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="fatherMiddlename" placeholder="Middle Name">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="fatherLastname" placeholder="Last Name" required>
+                </div>
+            </div>
+
+            <h6>MOTHER's NAME :</h6>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="motherFirstname" placeholder="First Name" required>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="motherMiddlename" placeholder="Middle Name">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="motherLastname" placeholder="Last Name" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <h6>GENDER :</h6>
+                    <select class="form-control" id="gender" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span class="error" id="genderError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>DATE OF BIRTH :</h6>
+                    <input type="date" class="form-control" id="dob" required onchange="calculateAge()">
+                    <span class="error" id="dobError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>CURRENT AGE :</h6>
+                    <input type="text" class="form-control" id="age" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <h6>MOBILE :</h6>
+                    <input type="text" class="form-control" id="mobile" maxlength="10" required
+                        placeholder="Enter 10-digit number">
+                    <span class="error" id="mobileError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>RESPONSIBILITY :</h6>
+                    <input type="text" class="form-control" id="degree" placeholder="Enter each with comma separation."
+                        required>
+                </div>
+
+                <div class="col-md-4">
+                    <h6>JOINING DATE :</h6>
+                    <input type="date" class="form-control" id="joiningDate" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h6>ADHAAR NUMBER :</h6>
+                <input type="text" class="form-control" id="adhaar" maxlength="12" required
+                    placeholder="Enter 12-digit number">
+                <span class="error" id="adhaarError"></span>
+            </div>
+    </div><br>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary w-50"><b>ADD </b></button>
+    </div>
+    </form>
+    </div><br>
+
+    <script>
+        function calculateAge() {
+            const dob = document.getElementById('dob').value;
+            if (dob) {
+                const today = new Date();
+                const birthDate = new Date(dob);
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                document.getElementById('age').value = age;
+            }
+        }
+
+        document.getElementById('registrationForm').addEventListener('submit', function (event) {
+            let isValid = true;
+
+            const mobile = document.getElementById('mobile').value;
+            if (mobile.length !== 10 || isNaN(mobile)) {
+                document.getElementById('mobileError').textContent = "Please enter a valid 10-digit mobile number.";
+                isValid = false;
+            } else {
+                document.getElementById('mobileError').textContent = ""; // Clear error message if valid
+            }
+
+            const adhaar = document.getElementById('adhaar').value;
+            if (adhaar.length !== 12 || isNaN(adhaar)) {
+                document.getElementById('adhaarError').textContent = "Please enter a valid 12-digit Adhaar number.";
+                isValid = false;
+            } else {
+                document.getElementById('adhaarError').textContent = ""; // Correct clearing of the Adhaar error message
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+    </script>
+</body>
+
+</html>

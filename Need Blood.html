@@ -5,51 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Request Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="HMS.css" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f9;
-        }
-
         .container {
-            max-width: 500px;
-            width: 100%;
-            padding: 20px;
-            background-color: #fff;
+            margin-top: 50px;
+            max-width: 600px;
+            background-color: #f8f9fa;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        input,
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
         }
 
         button {
-            background-color: #d6336c;
+            background-color: #37a2ef;
             color: white;
             border: none;
-            cursor: pointer;
+            height: 45px;
+            border-radius: 7px;
         }
 
         button:hover {
@@ -65,100 +39,138 @@
             color: red;
             font-size: 12px;
         }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-
-            input,
-            button {
-                padding: 8px;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Request Blood</h2>
-        <form id="bloodRequestForm">
-            <!-- Step 1: Enter Mobile Number -->
-            <div class="mobile-section">
-                <label for="mobile">Enter Mobile Number</label>
-                <input type="text" id="mobile" placeholder="Enter your mobile number" required>
-                <span class="error" id="mobileError"></span>
-                <button type="button" id="sendOtpBtn" onclick="validateMobile()">Send OTP</button>
+    <header>
+        <div class="header-top">
+            <div class="left-top-header">
+                <div class="first"></div>
+                <div class="second"></div>
+                <div class="third"></div>
+                <div class="fourth"></div>
+                <div class="fifth"></div>
+                <div class="sixth"></div>
+                <div class="seventh"></div>
+                <div class="eighth"></div>
+                <div class="nineth"></div>
+                <div class="tenth"></div>
+                <div class="eleventh"></div>
+                <div class="tweveth"></div>
+            </div>
+            <div class="right-top-header">
+                <a class="navbar-brand" href="#"><i class="fa fa-keyboard-o"
+                        style="font-size:28px;color:black;padding:4px">Eng/हिंदी</i></a>
             </div>
 
-            <!-- Step 2: Verify OTP -->
-            <div class="otp-section">
-                <label for="otp">Enter OTP</label>
-                <input type="text" id="otp" placeholder="Enter the OTP" required>
-                <span class="error" id="otpError"></span>
-                <button type="button" id="verifyOtpBtn">Verify OTP</button>
-            </div>
+        </div>
+        <hr>
+    </header>
+    <div class="container shadow-lg">
+        <h2 class="text-center">Request Blood</h2><br><br>
 
-            <!-- Step 3: Enter Patient Details -->
-            <div class="details-section">
-                <label for="name">Patient Name</label>
-                <input type="text" id="name" placeholder="Enter patient name" required>
+        <div id="step-1">
+            <form id="mobileForm">
+                <div class="mb-3">
+                    <label for="mobileNumber" class="form-label">Enter Mobile Number</label>
+                    <input type="number" class="form-control" id="mobileNumber" placeholder="Enter mobile number"
+                        required>
+                </div>
+                <button type="submit" class="w-100">Get OTP</button>
+            </form>
+        </div>
 
-                <label for="bloodGroup">Blood Group</label>
-                <input type="text" id="bloodGroup" placeholder="Enter blood group" required>
+        <div id="step-2" style="display: none;">
+            <form id="otpForm">
+                <div class="mb-3">
+                    <label for="otp" class="form-label">Enter OTP</label>
+                    <input type="text" class="form-control" id="otp" placeholder="Enter OTP" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Verify OTP</button>
+            </form>
+        </div>
 
-                <label for="hospital">Hospital</label>
-                <input type="text" id="hospital" placeholder="Enter hospital name" required>
+        <div id="step-3" style="display: none;">
+            <form id="detailsForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Patient Name<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter patient name" required>
+                </div>
 
-                <button type="submit">Submit Request</button>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label for="bloodGroup" class="form-label">Blood Group<span class="text-danger">*</span></label>
+                    <select class="form-control" id="bloodGroup" required>
+                        <option value="" disabled selected>Select blood group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="hospital" class="form-label">Hospital</label>
+                    <select class="form-control" id="hospital" required>
+                        <option value="CHARAK SEVA HOSPITAL">CHARAK SEVA HOSPITAL</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-danger w-100">Submit Request</button>
+            </form>
+        </div>
+
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const mobileSection = document.querySelector('.mobile-section');
-        const otpSection = document.querySelector('.otp-section');
-        const detailsSection = document.querySelector('.details-section');
-        const sendOtpBtn = document.getElementById('sendOtpBtn');
-        const verifyOtpBtn = document.getElementById('verifyOtpBtn');
-        const mobileError = document.getElementById('mobileError');
-        const otpError = document.getElementById('otpError');
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const step3 = document.getElementById('step-3');
 
-        sendOtpBtn.addEventListener('click', () => {
-            const mobile = document.getElementById('mobile').value;
-            mobileError.textContent = '';
 
-            if (!validateMobile(mobile)) {
-                mobileError.textContent = 'Invalid mobile number';
+        document.getElementById('mobileForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const mobileNumber = document.getElementById('mobileNumber').value;
+
+            if (/^\d{10}$/.test(mobileNumber)) {
+                alert('OTP sent to ' + mobileNumber);
+                step1.style.display = 'none';
+                step2.style.display = 'block';
             } else {
-                otpSection.style.display = 'block';
-                // Here you can add your logic to send OTP
-                alert("OTP sent to " + mobile);
+                alert('Invalid Mobile Number. Please enter exactly 10 digits.');
             }
         });
 
-        verifyOtpBtn.addEventListener('click', () => {
+        // 
+        document.getElementById('otpForm').addEventListener('submit', function (event) {
+            event.preventDefault();
             const otp = document.getElementById('otp').value;
-            otpError.textContent = '';
 
             if (otp === '1234') {
-                detailsSection.style.display = 'block';
-                otpSection.style.display = 'none';
-                mobileSection.style.display = 'none';
+                alert('OTP verified successfully');
+                step2.style.display = 'none';
+                step3.style.display = 'block';
             } else {
-                otpError.textContent = 'Invalid OTP';
+                alert('Invalid OTP, please try again.');
             }
         });
 
-        document.getElementById('bloodRequestForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Blood request submitted successfully!');
+
+        document.getElementById('detailsForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const bloodGroup = document.getElementById('bloodGroup').value;
+            const hospital = document.getElementById('hospital').value;
+
+            alert('Blood request submitted successfully for ' + name + ' with blood group ' + bloodGroup + ' at ' + hospital);
+            window.location.href = 'http://localhost/Charak%20Seva%20Hospital/index.html';
 
         });
-
-        function validateMobile(mobile) {
-            return /^[0-9]{10}$/.test(mobile);
-        }
     </script>
 </body>
 
