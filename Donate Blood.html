@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Blood</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="HMS.css" rel="stylesheet">
+    <script>document.addEventListener('DOMContentLoaded', () => {
+            let currentStep = 0;
+            const steps = document.querySelectorAll('.step');
+            const nextBtn = document.querySelector('#nextBtn');
+            const prevBtn = document.querySelector('#prevBtn');
+            const submitBtn = document.querySelector('#submitBtn');
+
+            function showStep(index) {
+                steps.forEach((step, idx) => {
+                    step.style.display = idx === index ? 'block' : 'none';
+                });
+
+                prevBtn.style.display = index > 0 ? 'inline-block' : 'none';
+                nextBtn.style.display = index < steps.length - 1 ? 'inline-block' : 'none';
+                submitBtn.style.display = index === steps.length - 1 ? 'inline-block' : 'none';
+            }
+
+            function validateStep(step) {
+                const fields = steps[step].querySelectorAll('select, input, textarea');
+                for (const field of fields) {
+                    if (!field.value.trim()) {
+                        alert('Please fill out all fields. It is compulsory before proceeding.');
+                        field.focus();
+                        return false;
+                    }
+
+                    // Additional validation for specific fields
+                    if (field.id === 'mobile' && !/^\d{10}$/.test(field.value)) {
+                        alert('Please enter a valid 10-digit mobile number.');
+                        field.focus();
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (!validateStep(currentStep)) return;
+
+                // Additional validation for dropdown "yes" answers
+                const validations = [
+                    { id: 'diseaseHistory', message: "You can't donate blood due to your medical history." },
+                    { id: 'existingDisease', message: "You can't donate blood due to your genetic disease history." },
+                    { id: 'hepatitisHistory', message: "You can't donate blood due to hepatitis history." },
+                    { id: 'tattooHistory', message: "You can't donate blood due to recent tattoo or piercing." },
+                    { id: 'vaccineHistory', message: "You can't donate blood due to recent vaccination." },
+                    { id: 'diabetesHistory', message: "You can't donate blood due to diabetes with insulin injections." },
+                    { id: 'epilepsyHistory', message: "You can't donate blood due to epilepsy or other conditions." },
+                    { id: 'injectionHistory', message: "You can't donate blood due to injection history." },
+                    { id: 'medicationHistory', message: "You can't donate blood due to ongoing medication." },
+                    { id: 'weightHistory', message: "You can't donate blood due to low weight." },
+                    { id: 'hemoglobinHistory', message: "You can't donate blood due to low hemoglobin." }
+                ];
+
+                const validation = validations[currentStep];
+                if (validation) {
+                    const userInput = document.querySelector(`#${validation.id}`).value;
+                    if (userInput === 'yes') {
+                        alert(validation.message);
+                        return;
+                    }
+                }
+
+                currentStep++;
+                showStep(currentStep);
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentStep--;
+                showStep(currentStep);
+            });
+
+            showStep(currentStep);
+
+            submitBtn.addEventListener('click', () => {
+                if (!validateStep(currentStep)) return;
+                alert('Your application form has been successfully submitted. All further methods will be forwarded to you by message or mail.');
+            });
+        });
+
+    </script>
+    <style>
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container shadow-lg">
+        <h1 class="text-center">Blood Donation Form</h1>
+
+        <div class="step" id="step-1">
+            <fieldset class="border p-4 rounded">
+                <label for="diseaseHistory" class="form-label">Do you have any serious illness?</label>
+                <select id="diseaseHistory" name="diseaseHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+
+        <div class="step" id="step-2" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="existingDisease" class="form-label" style="font-size:large;font-weight:500;">Do you have
+                    any genetic disease?</label>
+                <select id="existingDisease" name="existingDisease" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+
+        <div class="step" id="step-3" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="hepatitisHistory" class="form-label" style="font-size:large;font-weight:500;">Do you have
+                    hepatitis B, C,
+                    tuberculosis, leprosy, or an HIV infection?</label>
+                <select id="hepatitisHistory" name="hepatitisHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-4" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="tattooHistory" class="form-label" style="font-size:large;font-weight:500;">Have you recently
+                    gotten a
+                    tattoo or a body piercing?</label>
+                <select id="tattooHistory" name="tattooHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-5" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="vaccineHistory" class="form-label" style="font-size:large;font-weight:500;">Have you
+                    recently been
+                    vaccinated for measles, chickenpox, or shingles?</label>
+                <select id="vaccineHistory" name="vaccineHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-6" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="diabetesHistory" class="form-label" style="font-size:large;font-weight:500;">Do you have
+                    diabetes and
+                    take insulin injections?</label>
+                <select id="diabetesHistory" name="diabetesHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-7" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="epilepsyHistory" class="form-label" style="font-size:large;font-weight:500;">Do you have
+                    epilepsy,
+                    asthma, a bleeding disorder, thalassemia, or sickle cell anemia?</label>
+                <select id="epilepsyHistory" name="epilepsyHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-8" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="injectionHistory" class="form-label" style="font-size:large;font-weight:500;">Have you ever
+                    taken
+                    injections through veins?</label>
+                <select id="injectionHistory" name="injectionHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-9" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="medicationHistory" class="form-label" style="font-size:large;font-weight:500;">Are you
+                    taking any
+                    medication for an illness?</label>
+                <select id="medicationHistory" name="medicationHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-10" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="weightHistory" class="form-label" style="font-size:large;font-weight:500;">Is your weight
+                    less than 45 kilograms?</label>
+                <select id="weightHistory" name="weightHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-11" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <label for="hemoglobinHistory" class="form-label" style="font-size:large;font-weight:500;">And is your
+                    hemoglobin level less than 12.5 grams?</label>
+                <select id="hemoglobinHistory" name="hemoglobinHistory" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="step" id="step-12" style="display: none;">
+            <fieldset class="border p-4 rounded">
+                <form action="Donate Blood.php" method="POST">
+                    <legend>Personal Details</legend>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="father_name" class="form-label">Father's Name:</label>
+                        <input type="text" id="father_name" name="father_name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dob" class="form-label">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="blood_group" class="form-label">Blood Group:</label>
+                        <select id="blood_group" name="blood_group" class="form-select" required>
+                            <option value="">-- Select --</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address:</label>
+                        <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mobile" class="form-label">Mobile Number:</label>
+                        <input type="tel" id="mobile" name="mobile" class="form-control" pattern="[0-9]{10}" required>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+
+
+        <div class="mt-3 text-center d-flex justify-content-between">
+            <button type="button" id="prevBtn" class="btn btn-secondary w-50" style="display: none;">Previous</button>
+            <button type="button" id="nextBtn" class="btn btn-primary w-50">Next</button>
+            <button type="submit" id="submitBtn" class="btn btn-success w-50" style="display:none;">Submit</button>
+
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
