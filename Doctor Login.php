@@ -20,7 +20,7 @@
         $username = mysqli_real_escape_string($conn, $username);
         $password = mysqli_real_escape_string($conn, $password);
     
-        $sql = "SELECT * FROM doctors WHERE username = '$username' AND password = '$password'";
+        $sql = "SELECT * FROM doctors WHERE user_id = '$username' AND password = '$password'";
         $result = $conn->query($sql);
     
         if ($result->num_rows > 0) {

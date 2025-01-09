@@ -45,24 +45,24 @@
         <h2 class="text-center mb-3 "><u>REGISTRATION FORM</u></h2>
 
         <!-- Form starts -->
-        <form id="registrationForm" onsubmit="return validateForm()">
-            <!-- Top FrameSet: Patient Details -->
+        <form id="registrationForm" onsubmit="return validateForm()" method="post" action="Register.php"
+            enctype="multipart/form-data">
             <div class="frameset">
                 <h3>Patient Details</h3>
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" required>
+                        <input type="text" class="form-control" id="name" name="name" required>
                         <span class="error" id="nameError"></span>
                     </div>
                     <div class="col-md-4">
                         <label for="fathers-name" class="form-label">Father's Name</label>
-                        <input type="text" class="form-control" id="fathers-name" required>
+                        <input type="text" class="form-control" id="fathers-name" name="father-name" required>
                         <span class="error" id="fathersNameError"></span>
                     </div>
                     <div class="col-md-4">
                         <label for="mothers-name" class="form-label">Mother's Name</label>
-                        <input type="text" class="form-control" id="mothers-name" required>
+                        <input type="text" class="form-control" id="mothers-name" name="mother-name" required>
                         <span class="error" id="mothersNameError"></span>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="gender" class="form-label">Gender</label>
-                        <select class="form-control" id="gender" required>
+                        <select class="form-control" id="gender" name="gender" required>
                             <option value="">Select</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -80,32 +80,34 @@
                     </div>
                     <div class="col-md-4">
                         <label for="dob" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="dob" required onchange="calculateAge()">
+                        <input type="date" class="form-control" id="dob" name="dob" required onchange="calculateAge()">
                         <span class="error" id="dobError"></span>
                     </div>
                     <div class="col-md-4">
                         <label for="age" class="form-label">Current Age</label>
-                        <input type="text" class="form-control" id="age" readonly>
+                        <input type="text" class="form-control" id="age" name="age" readonly>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="mobile" class="form-label">Mobile Number</label>
-                        <input type="text" class="form-control" id="mobile" maxlength="10" required>
+                        <input type="text" class="form-control" id="mobile" name="mobile" maxlength="10" required>
                         <span class="error" id="mobileError"></span>
                     </div>
                     <div class="col-md-6">
                         <label for="alt-mobile" class="form-label">Alternate Mobile Number</label>
-                        <input type="text" class="form-control" id="alt-mobile" maxlength="10">
+                        <input type="text" class="form-control" id="alt-mobile" name="alt-mobile" maxlength="10">
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="photo" class="form-label">Upload Photo</label>
-                    <input type="file" class="form-control" id="photo" accept="image/*" required>
+                    <input type="file" class="form-control" id="photo" accept="image/*" name="photo" required>
+                    <small class="text-muted">Supported formats: JPG, PNG, GIF.</small>
                     <span class="error" id="photoError"></span>
                 </div>
+
             </div>
 
 
@@ -114,17 +116,17 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="village" class="form-label">Village</label>
-                        <input type="text" class="form-control" id="village" required>
+                        <input type="text" class="form-control" id="village" name="village" required>
                         <span class="error" id="villageError"></span>
                     </div>
                     <div class="col-md-4">
                         <label for="post" class="form-label">Post</label>
-                        <input type="text" class="form-control" id="post" required>
+                        <input type="text" class="form-control" id="post" name="post" required>
                         <span class="error" id="postError"></span>
                     </div>
                     <div class="col-md-4">
                         <label for="pincode" class="form-label">Pin Code</label>
-                        <input type="text" class="form-control" id="pincode" maxlength="6" required>
+                        <input type="text" class="form-control" id="pincode" maxlength="6" name="pincode" required>
                         <span class="error" id="pincodeError"></span>
                     </div>
                 </div>
@@ -132,12 +134,12 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="district" class="form-label">District</label>
-                        <input type="text" class="form-control" id="district" required>
+                        <input type="text" class="form-control" id="district" name="district" required>
                         <span class="error" id="districtError"></span>
                     </div>
                     <div class="col-md-6">
                         <label for="state" class="form-label">State</label>
-                        <input type="text" class="form-control" id="state" required>
+                        <input type="text" class="form-control" id="state" name="state" required>
                         <span class="error" id="stateError"></span>
                     </div>
                 </div>
@@ -149,17 +151,17 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" required>
+                        <input type="text" class="form-control" id="username" name="username" required>
                         <span class="error" id="usernameError"></span>
                     </div>
                     <div class="col-md-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" required>
+                        <input type="text" class="form-control" id="password" name="password" required>
                         <span class="error" id="passwordError"></span>
                     </div>
                     <div class="col-md-3">
                         <label for="confirm-password" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm-password" required>
+                        <input type="text" class="form-control" id="confirm-password" required>
                         <span class="error" id="confirmPasswordError"></span>
                     </div>
                 </div>

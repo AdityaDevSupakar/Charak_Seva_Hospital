@@ -13,14 +13,14 @@
         die("Connection failed: " . $conn->connect_error);
     } 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST["UserName"];
-        $password = $_POST["Password"];
+        $username = $_POST["username"];
+        $password = $_POST["password"];
     
         // Protect against SQL injection
         $username = mysqli_real_escape_string($conn, $username);
         $password = mysqli_real_escape_string($conn, $password);
     
-        $sql = "SELECT * FROM user_login WHERE username = '$username' AND password = '$password'";
+        $sql = "SELECT * FROM registration WHERE username = '$username' AND password = '$password'";
         $result = $conn->query($sql);
     
         if ($result->num_rows > 0) {
