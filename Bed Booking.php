@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reason = $_POST['reason'];
 
     // Prepare SQL query to insert data into the bed_booking table
-    $sql = "INSERT INTO bed_booking (mobile, name, fathers_name, mothers_name, dob, village, post, district, state, pincode, landmark, reason)
+    $sql = "INSERT INTO bed_booking (mobile, name, father_name, mother_name, dob, village, post, district, state, pincode, landmark, reason)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);

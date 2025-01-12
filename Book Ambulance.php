@@ -1,58 +1,45 @@
 <?php
-// Database connection settings
-$servername = "localhost";
-$username = "root";
-$password = ""; // Update with your MySQL password
-$database = "d_hms";
+$servername = "localhost"; 
+$username = "root";        
+$password = "";            
+$database = "d_hms";       
 
-// Create a connection
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+} else {
+    echo "Database connected successfully!<br>";
 }
 
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $step = $_POST['step'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if ($step === 'step-1') {
-        $mobile_number = $_POST['mobileNumber'];
+    var_dump($_POST); 
 
-        // Validate mobile number
-        if (preg_match('/^\d{10}$/', $mobile_number)) {
-            echo json_encode(['status' => 'success', 'message' => 'OTP sent successfully']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid mobile number']);
+    $bookername = htmlspecialchars(trim($_POST['bookername']));
+    $mobile = htmlspecialchars(trim($_POST['mobile']));
+    $location = htmlspecialchars(trim($_POST['location']));
+    $landmark = htmlspecialchars(trim($_POST['landmark']));
+
+    if (empty($bookername) || empty($mobile) || empty($location) || empty($landmark)) {
+        echo "<script>alert('All fields are required!');</script>";
+    } else {
+        $stmt = $conn->prepare("INSERT INTO book_ambulance (booker_name, mobile, location, landmark) VALUES (?, ?, ?, ?)");
+        
+        if (!$stmt) {
+            error_log("Failed to prepare statement: " . $conn->error);
+            die("Failed to prepare statement");
         }
-    }
 
-    if ($step === 'step-2') {
-        $otp = $_POST['otp'];
+        $stmt->bind_param("ssss", $bookername, $mobile, $location, $landmark);
 
-        // Hardcoded OTP validation
-        if ($otp === '1234') {
-            echo json_encode(['status' => 'success', 'message' => 'OTP verified successfully']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid OTP']);
-        }
-    }
-
-    if ($step === 'step-3') {
-        $mobile_number = $_POST['mobileNumber'];
-        $booker_name = $_POST['bookerName'];
-        $location = $_POST['location'];
-
-        // Insert booking details into database
-        $sql = "INSERT INTO book_ambulance (mobile_number, booker_name, location) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $mobile_number, $booker_name, $location);
-
+        
         if ($stmt->execute()) {
-            echo json_encode(['status' => 'success', 'message' => 'Ambulance booked successfully']);
+            echo "<script>alert('Ambulance booked successfully!');</script>";
+            echo "<script>window.location.href = 'index.html';</script>";
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Error: ' . $stmt->error]);
+            error_log("Failed to execute query: " . $stmt->error);
+            echo "<script>alert('Failed to book ambulance. Please try again later.');</script>";
         }
 
         $stmt->close();
