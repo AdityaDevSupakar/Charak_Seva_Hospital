@@ -1,15 +1,13 @@
 <?php
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve form inputs
-    $name = htmlspecialchars(trim($_POST['name']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $subject = htmlspecialchars(trim($_POST['subject']));
-    $message = htmlspecialchars(trim($_POST['message']));
 
-    // Validate inputs
-    if (empty($name) || empty($email) || empty($subject) || empty($message)) {
-        echo "All fields are required.";
+    $name = htmlspecialchars(trim($_POST['name'] ?? ''));
+    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+    $subject = htmlspecialchars(trim($_POST['subject'] ?? ''));
+    $problem = htmlspecialchars(trim($_POST['problem'] ?? ''));
+
+    if (empty($name) || empty($email) || empty($subject) || empty($problem)) {
+        echo "All fields are required. Please fill all the fields.";
         exit;
     }
 
@@ -18,38 +16,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Optionally, send email
-    $to = "charakseva.healthcare@gmail.com"; // Replace with the desired recipient email
-    $headers = "From: $email\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-    $fullMessage = "Name: $name\nEmail: $email\nSubject: $subject\n\nMessage:\n$message";
+    // // Send email
+    // $to = "charakseva.healthcare@gmail.com";
+    // $headers = "From: $email\r\n";
+    // $headers .= "Reply-To: $email\r\n";
+    // $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    // $fullMessage = "Name: $name\nEmail: $email\nSubject: $subject\n\nMessage:\n$problem";
 
-    if (mail($to, $subject, $fullMessage, $headers)) {
-        echo "Thank you, $name! Your message has been sent successfully.";
-    } else {
-        echo "Error: Unable to send your message. Please try again later.";
-    }
+    // if (mail($to, $subject, $fullMessage, $headers)) {
+    //     echo "Thank you, $name! Your message has been sent successfully.<br>";
+    // } else {
+    //     echo "Error: Unable to send your message. Please try again later.<br>";
+    // }
 
-    // Optionally, save to a database
-    // Uncomment below and configure database connection
-    /*
-    $conn = new mysqli('localhost', 'username', 'password', 'database');
+    $servername = 'localhost';
+    $username = 'root'; 
+    $password = '';
+    $dbname = 'd_hms';   
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $name, $email, $subject, $message);
+    $stmt = $conn->prepare("INSERT INTO contact_us (name, email, subject, problem) VALUES (?, ?, ?, ?)");
+    if (!$stmt) {
+        echo "Statement preparation failed: " . $conn->error;
+        exit;
+    }
+
+    $stmt->bind_param("ssss", $name, $email, $subject, $problem);
 
     if ($stmt->execute()) {
         echo "Your message has been recorded.";
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Error saving your data: " . $stmt->error;
     }
 
     $stmt->close();
     $conn->close();
-    */
 }
 ?>

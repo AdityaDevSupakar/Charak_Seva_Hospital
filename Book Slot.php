@@ -15,33 +15,73 @@ if ($conn->connect_error) {
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $firstName = $_POST['firstname'];
-    $middleName = $_POST['middlename'] ?? null;
-    $lastName = $_POST['lastname'];
-    $fathersName = $_POST['fathers_name'];
-    $mothersName = $_POST['mothers_name'];
-    $gender = $_POST['gender'];
-    $dob = $_POST['dob'];
-    $age = $_POST['age'];
-    $mobile = $_POST['mobile'];
-    $address = $_POST['address'];
-    $reason = $_POST['reason'];
+    // Retrieve form data
+    $firstname = $_POST['firstname'] ?? null;
+    $middlename = $_POST['middlename'] ?? null;
+    $lastname = $_POST['lastname'] ?? null;
+    $f_firstname = $_POST['f_firstname'] ?? null;
+    $f_middlename = $_POST['f_middlename'] ?? null;
+    $f_lastname = $_POST['f_lastname'] ?? null;
+    $m_firstname = $_POST['m_firstname'] ?? null;
+    $m_middlename = $_POST['m_middlename'] ?? null;
+    $m_lastname = $_POST['m_lastname'] ?? null;
+    $gender = $_POST['gender'] ?? null;
+    $dob = $_POST['dob'] ?? null;
+    $age = $_POST['age'] ?? null;
+    $mobile = $_POST['mobile'] ?? null;
+    $address = $_POST['address'] ?? null;
+    $reason = $_POST['reason'] ?? null;
+
+    // Validate required fields
+    if (
+        !$firstname || !$lastname || !$f_firstname || !$f_lastname ||
+        !$m_firstname || !$m_lastname || !$gender || !$dob ||
+        !$age || !$mobile || !$address || !$reason
+    ) {
+        die("Please fill in all required fields.");
+    }
 
     // SQL query to insert data
-    $sql = "INSERT INTO appointments (firstname, middlename, lastname, fathers_name, mothers_name, gender, dob, age, mobile, address, reason)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO appointments 
+            (firstname, middlename, lastname, f_firstname, f_middlename, f_lastname, m_firstname, m_middlename, m_lastname, gender, dob, age, mobile, address, reason) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssisds", $firstName, $middleName, $lastName, $fathersName, $mothersName, $gender, $dob, $age, $mobile, $address, $reason);
 
+    if (!$stmt) {
+        die("Error preparing statement: " . $conn->error);
+    }
+
+    $stmt->bind_param(
+        "sssssssssssisss",
+        $firstname,
+        $middlename,
+        $lastname,
+        $f_firstname,
+        $f_middlename,
+        $f_lastname,
+        $m_firstname,
+        $m_middlename,
+        $m_lastname,
+        $gender,
+        $dob,
+        $age,
+        $mobile,
+        $address,
+        $reason
+    );
+
+    // Execute the statement
     if ($stmt->execute()) {
         echo "Appointment booked successfully!";
     } else {
         echo "Error: " . $stmt->error;
     }
 
+    // Close the statement
     $stmt->close();
 }
 
+// Close the database connection
 $conn->close();
 ?>

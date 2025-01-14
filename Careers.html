@@ -167,57 +167,50 @@
         </nav>
     </header>
     <section>
-        <div class="body-head text-center text-primary-emphasis bg-body-tertiary">
-            <p class="fs-2 text-center text-black">
-                <em>Careers</em>
-            </p>
-            <p class="fs-5 text-center text-secondary">Home > Careers
-            </p>
+        <div class="body-head text-center bg-body-tertiary">
+            <p class="fs-2 text-center text-black"><em>Careers</em></p>
+            <p class="fs-5 text-center text-secondary">Home > Careers</p>
         </div><br>
         <div class="row g-4">
-            <div class="col-md-4 text-left fw-italic">
+            <div class="col-md-4 text-left">
                 <h2 class="text-white">.</h2>
-
                 <ul class="list-unstyled">
                     <li class="fw-bold fs-5">Join Us</li>
                     <li class="fs-1"><b>Careerly</b></li>
                     <li class="fs-3">Share your Resume with Us</li>
-
                 </ul>
             </div>
             <div class="col-md-7">
-                <h3 class=""><u>For job enquires post your resume.</u></h3>
+                <h3><u>For job enquires post your resume.</u></h3>
+                <form method="post" action="Careers.php" enctype="multipart/form-data">
 
-                <form method="post" action="Careers.php">
                     <div class="mb-3">
                         <input type="text" class="form-control" name="name" id="name" placeholder="YOUR FULL NAME"
                             required>
                     </div>
-
                     <div class="mb-3">
                         <input type="email" class="form-control" name="email" id="email"
                             placeholder="YOUR EMAIL ADDRESS" required>
                     </div>
                     <div class="md-3">
-                        <select class="form-select form-select-sm" aria-label="Small select example" name="gender"
-                            required>
+                        <select class="form-select" name="gender" required>
                             <option selected>-- SELECT GENDER --</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <br><br>
                     <div class="mb-3">
                         <h6>Upload Your CV/RESUME</h6>
                         <input type="file" id="cv" name="cv" required>
-                    </div><br>
+                    </div>
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary"><b>APPLY NOW</b></button>
                     </div>
                 </form>
             </div>
         </div><br><br>
+
         <div class="bg-dark text-white pt-5">
             <div class="contact-us">
                 <div class="row">
@@ -232,99 +225,80 @@
                             <li>Bharat</li>
                         </ul>
                     </div>
-                    <div class="col-md-3 text-left">
+                    <div class="col-md-3">
                         <h4><b>Contact Us</b></h4>
                         <hr>
                         <ul class="list-unstyled">
-                            <li>Reception :- <span class="text-primary"> +91 7654328976</span></li>
+                            <li>Reception: <span class="text-primary">+91 7654328976</span></li>
                             <li>Enquiry :- <span class="text-primary"> +91 8764545298</span></li>
                             <li>Laboratory :- <span class="text-primary"> +91 7994793111</span></li>
                             <li>Pharmacy :- <span class="text-primary"> +91 7944796444</span></li>
                             <li>IVF :- <span class="text-primary"> +91 7654328976</span></li>
                             <li>Labour Room :- <span class="text-primary"> +91 8764545298</span></li>
                             <li>Insurance & Billing :- <span class="text-primary"> +91 75920 00732</span></li>
-                            <li>Email:- <span class="text-primary"> charakseva.healthcare@gmail.com</span></li>
-
+                            <li>Email: <span class="text-primary">charakseva.healthcare@gmail.com</span></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-center">
                         <h4><b>Our Location</b></h4>
                         <hr>
-                        <div class="embed-responsive embed-responsive-21by13">
-                            <iframe class="embed-responsive-item"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11251.405179204643!2d77.2831912077086!3d23.18148795034648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c5c3c7b0aa7e1%3A0xf4798e9656dfb029!2sSagar%20Institute%20of%20Science%2C%20Technology%20%26%20Research%2C%20Ratibad!5e1!3m2!1sen!2sin!4v1704175844493!5m2!1sen!2sin"></iframe>
-                        </div>
+                        <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="300"
+                            style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
-
                 </div>
             </div>
             <hr>
-            <!-- <h2>social link</h2> -->
-            <div class="row dispaly-flex text-align-center justify-content-center">
-                <div class="col-md-5">
+            <div class="row">
+                <div class="col-md-5 text-center">
                     <h4><b>Emergency Calling</b></h4>
                     <h1><b><span class="text-primary">+91 7779345239</span></b></h1>
                 </div>
                 <div class="col-md-5">
-                    <p>
                     <h5><span class="bg-primary py-2 px-3">Follow Us</span></h5>
-                    </p>
                     <div>
-                        <i class="fa-brands fa-2x me-2 fa-whatsapp" aria-hidden="true"></i>
-                        <i class="fa-brands fa-2x me-2 fa-facebook" aria-hidden="true"></i>
-                        <i class="fa-brands fa-2x me-2 fa-instagram" aria-hidden="true"></i>
-                        <i class="fa-brands fa-2x me-2 fa-telegram" aria-hidden="true"></i>
-
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-telegram"></i>
                     </div>
                 </div>
-                <div class="col-md-4"></div>
-
-
             </div>
             <hr>
             <div class="row">
-
                 <div class="col-md-5 text-center">
                     <small>Site Designed and developed by Aditya Dev Supakar</small><br>
                     <small>Copyright@2024. All rights reserved.</small>
                 </div>
-
             </div>
         </div>
     </section><br>
+
     <footer>
-        <marquee behavior=" full" direction="left" transition="7">
-            <b>***** !! ॐ सर्वे भवन्तु सुखिनः , सर्वे सन्तु निरामयाः , सर्वे भद्राणि पश्यन्तु , मा
-                कश्चित् दुःख
-                भाग्भवेत् !! ***** !! सभी सुखी होवें , सभी रोगमुक्त रहें , सभी का जीवन मंगलमय बनें
-                और कोई भी दुःख का
-                भागी न बने !! ***** !! O GOD MAY EVERYONE ALWAYS BE HAPPY , LET ALL BE FREE FROM
-                DEBILITATION , LET
-                ALL
-                SEE GOODNESS , LET THERE BE NO VICTIMS OF SORROW !! *****</b>
-        </marquee>
+        <marquee behavior="full" direction="left">***** !! ॐ सर्वे भवन्तु सुखिनः ... !! *****</marquee>
     </footer>
 
-    <!-- Optional JavaScript -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    <!-- Validation Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const form = document.querySelector("form[name='careerForm']");
-            const nameInput = document.getElementById("name");
-            const emailInput = document.getElementById("email");
-            const genderSelect = document.querySelector("select[name='gender']");
-            const cvInput = document.getElementById("cv");
-
             form.addEventListener("submit", function (event) {
                 let isValid = true;
                 let errorMessage = "";
 
                 // Validate name
+                const nameInput = document.getElementById("name");
                 if (nameInput.value.trim() === "") {
                     isValid = false;
                     errorMessage += "Name is required.\n";
                 }
 
                 // Validate email
+                const emailInput = document.getElementById("email");
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailPattern.test(emailInput.value)) {
                     isValid = false;
@@ -332,12 +306,14 @@
                 }
 
                 // Validate gender selection
+                const genderSelect = document.querySelector("select[name='gender']");
                 if (genderSelect.value === "") {
                     isValid = false;
                     errorMessage += "Please select a gender.\n";
                 }
 
                 // Validate file upload
+                const cvInput = document.getElementById("cv");
                 if (cvInput.files.length === 0) {
                     isValid = false;
                     errorMessage += "Please upload your CV/Resume.\n";
@@ -352,23 +328,6 @@
         });
     </script>
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>

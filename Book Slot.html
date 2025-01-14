@@ -12,7 +12,6 @@
             margin: 20px;
             background-color: rgb(112, 131, 250);
             overflow-x: hidden;
-
         }
 
         .frameset {
@@ -20,22 +19,16 @@
             padding: 20px;
             margin-bottom: 20px;
             background-color: rgb(58, 192, 250);
-
-        }
-
-        .age-label {
-            display: inline-block;
-            margin-left: 10px;
         }
 
         .error {
             color: red;
+            font-size: 0.9em;
         }
     </style>
 </head>
 
 <body>
-
     <div class="container">
         <h2 class="text-center mb-3 bg-info"><u>BOOK APPOINTMENT</u></h2>
 
@@ -46,44 +39,53 @@
                 <h6>NAME :</h6>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="firstname" required>
+                        <input type="text" class="form-control" id="firstname" name="firstname" required
+                            placeholder="First Name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="middlename">
+                        <input type="text" class="form-control" id="middlename" name="middlename"
+                            placeholder="Middle Name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="lastname" required>
+                        <input type="text" class="form-control" id="lastname" name="lastname" required
+                            placeholder="Last Name">
                     </div>
                 </div>
                 <h6>FATHER's NAME :</h6>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="firstname" required>
+                        <input type="text" class="form-control" id="f_firstname" name="f_firstname" required
+                            placeholder="First Name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="middlename">
+                        <input type="text" class="form-control" id="f_middlename" name="f_middlename"
+                            placeholder="Middle Name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="lastname" required>
+                        <input type="text" class="form-control" id="f_lastname" name="f_lastname" required
+                            placeholder="Last Name">
                     </div>
                 </div>
                 <h6>MOTHER's NAME :</h6>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="firstname" required>
+                        <input type="text" class="form-control" id="m_firstname" name="m_firstname" required
+                            placeholder="First Name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="middlename">
+                        <input type="text" class="form-control" id="m_middlename" name="m_middlename"
+                            placeholder="Middle Name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="lastname" required>
+                        <input type="text" class="form-control" id="m_lastname" name="m_lastname" required
+                            placeholder="Last Name">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <h6>GENDER :</h6>
-                        <select class="form-control" id="gender" required>
+                        <select class="form-control" id="gender" name="gender" required>
                             <option value="" disabled selected>Select</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -93,33 +95,33 @@
                     </div>
                     <div class="col-md-4">
                         <h6>DATE OF BIRTH :</h6>
-                        <input type="date" class="form-control" id="dob" required onchange="calculateAge()">
+                        <input type="date" class="form-control" id="dob" name="dob" required onchange="calculateAge()">
                         <span class="error" id="dobError"></span>
                     </div>
                     <div class="col-md-4">
                         <h6>CURRENT AGE :</h6>
-                        <input type="text" class="form-control" id="age" readonly>
+                        <input type="text" class="form-control" id="age" name="age" readonly>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <h6>MOBILE :</h6>
-                        <input type="number" class="form-control" id="mobile" maxlength="10" required>
+                        <input type="number" class="form-control" id="mobile" name="mobile" maxlength="10" required>
+                        <span class="error" id="mobileError"></span>
                     </div>
                     <div class="col-md-8">
                         <h6>ADDRESS :</h6>
-                        <input type="text" class="form-control" id="alt-mobile" maxlength="10">
+                        <input type="text" class="form-control" id="address" name="address" required>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <h6>REASON OF VISIT :</h6>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    <textarea class="form-control" id="reason" name="reason" rows="3"
                         placeholder="Start writing your reason from here." required></textarea>
                 </div>
             </div>
-
 
             <!-- Submit Button -->
             <div class="text-center">
@@ -146,29 +148,18 @@
 
         function validateForm() {
             let isValid = true;
-            const requiredFields = ['name', 'fathers-name', 'mothers-name', 'gender', 'dob', 'mobile', 'pincode', 'username', 'password', 'confirm-password', 'photo'];
-            const errorMessages = {
-                name: "Please enter your name.",
-                "fathers-name": "Please enter your father's name.",
-                "mothers-name": "Please enter your mother's name.",
-                gender: "Please select your gender.",
-                dob: "Please enter your date of birth.",
-                mobile: "Please enter a valid 10-digit mobile number.",
-            };
-
-            // Validate required fields
-            requiredFields.forEach(function (fieldId) {
-                const field = document.getElementById(fieldId);
-                const errorSpan = document.getElementById(fieldId + 'Error');
-                if (field && field.value === "") {
+            const fields = ['firstname', 'lastname', 'f_firstname', 'f_lastname', 'm_firstname', 'm_lastname', 'gender', 'dob', 'mobile', 'address', 'reason'];
+            fields.forEach((id) => {
+                const field = document.getElementById(id);
+                const errorSpan = document.getElementById(id + 'Error');
+                if (field && field.value.trim() === "") {
+                    if (errorSpan) errorSpan.textContent = "This field is required.";
                     isValid = false;
-                    errorSpan.textContent = errorMessages[fieldId];
-                } else {
+                } else if (errorSpan) {
                     errorSpan.textContent = "";
                 }
             });
 
-            // Additional validation
             const mobile = document.getElementById('mobile').value;
             if (mobile && (mobile.length !== 10 || isNaN(mobile))) {
                 document.getElementById('mobileError').textContent = "Please enter a valid 10-digit mobile number.";

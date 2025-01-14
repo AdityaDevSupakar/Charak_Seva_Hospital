@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process photo
     $photoPath = null;
     if ($photo && $photo['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = "Photos/";
+        $uploadDir = "Uploads/";
         $photoPath = $uploadDir . basename($photo['name']);
         if (!move_uploaded_file($photo['tmp_name'], $photoPath)) {
             $errors[] = "Failed to upload photo.";
