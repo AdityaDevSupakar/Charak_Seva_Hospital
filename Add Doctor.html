@@ -35,34 +35,39 @@
     <div class="container">
         <h1 class="text-center mb-3"><u>ADD DOCTOR</u></h1><br>
 
-        <form id="registrationForm">
+        <form id="registrationForm" method="post" action="Add Doctor.php">
             <div class="frameset">
-                <div class="col-md-12 d-flex flex-column align-items-center">
+                <div class="mb-3 text-center">
                     <label for="profile" class="form-label">
-                        <i class="fa fa-id-badge" aria-hidden="true" style="font-size: 108px;"></i>
+                        <i class="fa fa-id-badge" aria-hidden="true" style="font-size: 100px;"></i>
                     </label>
-                    <input type="file" class="form-control" id="profile" style="width: 100px;">
-
+                    <input type="file" class="form-control" id="profile" name="profile" required>
                 </div>
-
-                <br>
+                <h3 class="text-center mb-3 bg-primary text-white">PERSONAL INFORMATION</h3><br>
                 <h6>NAME :</h6>
+                <div class="col-md-4">
+                    <select class="form-control" id="salutation" name="salutation" required>
+                        <option value="" disabled selected>Salutation</option>
+                        <option value="DR">DR</option>
+                        <option value="MR">MR</option>
+                        <option value="MRS">MRS</option>
+                        <option value="SHRI">SHRI</option>
+                        <option value="SHRIMATI">SHRIMATI</option>
+                    </select>
+                </div><br>
+
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <select class="form-control" id="salutation" required>
-                            <option value="" disabled selected>Salutation</option>
-                            <option value="DR">DR</option>
-                            <option value="MR">MR</option>
-                            <option value="MRS">MRS</option>
-                            <option value="SHRI">SHRI</option>
-                            <option value="SHRIMATI">SHRIMATI</option>
-                        </select>
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name"
+                            required>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="firstname" placeholder="First Name" required>
+                        <input type="text" class="form-control" id="middlename" name="middlename"
+                            placeholder="Middle Name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="lastname" placeholder="Last Name" required>
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name"
+                            required>
                     </div>
                 </div>
             </div>
@@ -70,33 +75,39 @@
             <h6>FATHER's NAME :</h6>
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="fatherFirstname" placeholder="First Name" required>
+                    <input type="text" class="form-control" id="f_firstname" name="f_firstname" placeholder="First Name"
+                        required>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="fatherMiddlename" placeholder="Middle Name">
+                    <input type="text" class="form-control" id="f_middlename" name="f_middlename"
+                        placeholder="Middle Name">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="fatherLastname" placeholder="Last Name" required>
+                    <input type="text" class="form-control" id="f_lastname" name="f_lastname" placeholder="Last Name"
+                        required>
                 </div>
             </div>
 
             <h6>MOTHER's NAME :</h6>
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="motherFirstname" placeholder="First Name" required>
+                    <input type="text" class="form-control" id="m_firstname" name="m_firstname" placeholder="First Name"
+                        required>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="motherMiddlename" placeholder="Middle Name">
+                    <input type="text" class="form-control" id="m_middlename" name="m_middlename"
+                        placeholder="Middle Name">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="motherLastname" placeholder="Last Name" required>
+                    <input type="text" class="form-control" id="m_lastname" name="m_lastname" placeholder="Last Name"
+                        required>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-4">
                     <h6>GENDER :</h6>
-                    <select class="form-control" id="gender" required>
+                    <select class="form-control" id="gender" name="gender" required>
                         <option value="" disabled selected>Select</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -106,44 +117,101 @@
                 </div>
                 <div class="col-md-4">
                     <h6>DATE OF BIRTH :</h6>
-                    <input type="date" class="form-control" id="dob" required onchange="calculateAge()">
+                    <input type="date" class="form-control" id="dob" name="dob" required>
                     <span class="error" id="dobError"></span>
                 </div>
                 <div class="col-md-4">
-                    <h6>CURRENT AGE :</h6>
-                    <input type="text" class="form-control" id="age" readonly>
+                    <h6>MOBILE :</h6>
+                    <input type="tel" class="form-control" id="mobile" name="mobile" maxlength="10" required
+                        placeholder="Enter 10-digit number">
+                    <span class="error" id="mobileError"></span>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <div class="col-md-4">
-                    <h6>MOBILE :</h6>
-                    <input type="tel" class="form-control" id="mobile" maxlength="10" required
-                        placeholder="Enter 10-digit number">
-                    <span class="error" id="mobileError"></span>
-                </div>
+
                 <div class="col-md-4">
                     <h6>DEGREE :</h6>
-                    <input type="text" class="form-control" id="degree" placeholder="Enter each with comma separation."
-                        required>
+                    <input type="text" class="form-control" id="degree" name="degree"
+                        placeholder="Enter each with comma separation." required>
                 </div>
-
                 <div class="col-md-4">
-                    <h6>JOINING DATE :</h6>
-                    <input type="date" class="form-control" id="joiningDate" required>
+                    <h6>DOCTOR TYPE :</h6>
+                    <select class="form-control" id="doctor_type" name="doctor_type" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Primary Care Physicians">Primary Care Physicians</option>
+                        <option value="Specialists">Specialists</option>
+                        <option value="Surgical Specialties">Surgical Specialties</option>
+                        <option value="Obstetricians">Obstetricians</option>
+                        <option value="Gynecologists">Gynecologists</option>
+                    </select>
+                    <span class="error" id="typeError"></span>
                 </div>
             </div>
-    </div><br>
+            <h3 class="text-center mb-3 bg-primary text-white">SCHEDULE OF THE DOCTOR</h3><br>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <h6>DAY FROM :</h6>
+                    <select class="form-control" id="day_from" name="day_from" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="MONDAY">MONDAY</option>
+                        <option value="TUESDAY">TUESDAY</option>
+                        <option value="WEDNESDAY">WEDNESDAY</option>
+                        <option value="THURSDAY">THURSDAY</option>
+                        <option value="FRIDAY">FRIDAY</option>
+                        <option value="SATURDAY">SATURDAY</option>
+                    </select>
+                    <span class="error" id="dayError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>DAY TO :</h6>
+                    <select class="form-control" id="day_to" name="day_to" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="MONDAY">MONDAY</option>
+                        <option value="TUESDAY">TUESDAY</option>
+                        <option value="WEDNESDAY">WEDNESDAY</option>
+                        <option value="THURSDAY">THURSDAY</option>
+                        <option value="FRIDAY">FRIDAY</option>
+                        <option value="SATURDAY">SATURDAY</option>
+                    </select>
+                    <span class="error" id="dayError"></span>
 
-    <!-- Submit Button -->
-    <div class="text-center">
-        <button type="submit" class="btn btn-primary w-50"><b>ADD </b></button>
-    </div>
-    </form>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <h6>TIME FROM :</h6>
+                    <input type="time" class="form-control" id="time_from" name="time_from" required>
+                    <span class="error" id="timeError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>TIME TO :</h6>
+                    <input type="time" class="form-control" id="time_to" name="time_to" required>
+                    <span class="error" id="timeError"></span>
+                </div>
+            </div>
+            <h3 class="text-center mb-3 bg-primary text-white">LOGIN DETAILS</h3><br>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <h6>USER ID :</h6>
+                    <input type="text" class="form-control" id="user_id" name="user_id" required>
+                    <span class="error" id="IdError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>PASSWORD :</h6>
+                    <input type="text" class="form-control" id="password" name="password" required>
+                    <span class="error" id="passwordError"></span>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success w-50"><b>ADD </b></button>
+            </div>
+        </form>
     </div><br>
 
     <script>
-        function calculateAge() {
+        <!-- function calculateAge() {
             const dob = document.getElementById('dob').value;
             if (dob) {
                 const today = new Date();
@@ -155,7 +223,7 @@
                 }
                 document.getElementById('age').value = age;
             }
-        }
+        } -->
 
         document.getElementById('registrationForm').addEventListener('submit', function (event) {
             let isValid = true;
@@ -165,11 +233,11 @@
                 document.getElementById('mobileError').textContent = "Please enter a valid 10-digit mobile number.";
                 isValid = false;
             } else {
-                document.getElementById('mobileError').textContent = ""; // Clear error message if valid
+                document.getElementById('mobileError').textContent = "";
             }
 
             if (!isValid) {
-                event.preventDefault(); // Prevent form submission if validation fails
+                event.preventDefault();
             }
         });
     </script>

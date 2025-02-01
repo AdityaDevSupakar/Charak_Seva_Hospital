@@ -10,27 +10,30 @@
     <style>
         body {
             margin: 20px;
-            background-color: rgb(112, 131, 250);
             overflow-x: hidden;
         }
 
         .frameset {
-            border: 1px solid navy;
+            border: 1px solid rgb(128, 0, 0);
             padding: 20px;
             margin-bottom: 20px;
-            background-color: rgb(58, 192, 250);
+            background-color: rgb(251, 254, 255);
         }
 
         .error {
             color: red;
             font-size: 0.9em;
         }
+
+        #b1:focus {
+            background-color: rgb(30, 203, 30);
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2 class="text-center mb-3 bg-info"><u>BOOK APPOINTMENT</u></h2>
+        <h2 class="text-center mb-3" style="font-weight:700;font-size:xx-large;"><u>BOOK APPOINTMENT</u></h2>
 
         <!-- Form starts -->
         <form id="registrationForm" onsubmit="return validateForm()" action="Book Slot.php" method="post">
@@ -110,9 +113,23 @@
                         <input type="number" class="form-control" id="mobile" name="mobile" maxlength="10" required>
                         <span class="error" id="mobileError"></span>
                     </div>
-                    <div class="col-md-8">
-                        <h6>ADDRESS :</h6>
-                        <input type="text" class="form-control" id="address" name="address" required>
+                    <div class="col-md-4">
+                        <h6>VILLAGE :</h6>
+                        <input type="text" class="form-control" id="village" name="village" required>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>POST :</h6>
+                        <input type="text" class="form-control" id="post" name="post" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <h6>PIN CODE :</h6>
+                        <input type="text" class="form-control" id="pincode" name="pincode" maxlength="6" required>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>DIST :</h6>
+                        <input type="text" class="form-control" id="dist" name="dist" required>
                     </div>
                 </div>
 
@@ -125,7 +142,8 @@
 
             <!-- Submit Button -->
             <div class="text-center">
-                <button type="submit" class="btn btn-primary w-100"><b>BOOK SLOT</b></button>
+                <button type="submit" class="btn btn-info w-100" style="font-size:larger;" id="b1"><b>CONFIRM
+                    </b></button>
             </div>
         </form>
     </div>
@@ -161,11 +179,12 @@
             });
 
             const mobile = document.getElementById('mobile').value;
-            if (mobile && (mobile.length !== 10 || isNaN(mobile))) {
+            if (mobile.length !== 10 || isNaN(mobile)) {
                 document.getElementById('mobileError').textContent = "Please enter a valid 10-digit mobile number.";
                 isValid = false;
+            } else {
+                document.getElementById('mobileError').textContent = "";
             }
-
             return isValid;
         }
     </script>

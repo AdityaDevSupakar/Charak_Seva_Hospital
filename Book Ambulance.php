@@ -13,27 +13,32 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+    
     var_dump($_POST); 
-
-    $bookername = htmlspecialchars(trim($_POST['bookername']));
+    
+    $firstname = htmlspecialchars(trim($_POST['firstname']));
+    $middlename = htmlspecialchars(trim($_POST['middlename']));
+    $lastname = htmlspecialchars(trim($_POST['lastname']));
+    $gender = htmlspecialchars(trim($_POST['gender']));
+    $age = htmlspecialchars(trim($_POST['age']));
     $mobile = htmlspecialchars(trim($_POST['mobile']));
-    $location = htmlspecialchars(trim($_POST['location']));
+    $place = htmlspecialchars(trim($_POST['place']));
     $landmark = htmlspecialchars(trim($_POST['landmark']));
-
-    if (empty($bookername) || empty($mobile) || empty($location) || empty($landmark)) {
+    $area = htmlspecialchars(trim($_POST['area']));
+    $street = htmlspecialchars(trim($_POST['street']));
+    
+    if (empty($firstname) || empty($lastname) || empty($gender) || empty($age) || empty($mobile) || empty($place) || empty($landmark) || empty($area) || empty($street)) {
         echo "<script>alert('All fields are required!');</script>";
     } else {
-        $stmt = $conn->prepare("INSERT INTO book_ambulance (booker_name, mobile, location, landmark) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO book_ambulance (firstname, middlename, lastname, gender, age, mobile, place, landmark, area, street) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         if (!$stmt) {
             error_log("Failed to prepare statement: " . $conn->error);
             die("Failed to prepare statement");
         }
 
-        $stmt->bind_param("ssss", $bookername, $mobile, $location, $landmark);
+        $stmt->bind_param("ssssisssss", $firstname, $middlename, $lastname, $gender, $age, $mobile, $place, $landmark, $area, $street);
 
-        
         if ($stmt->execute()) {
             echo "<script>alert('Ambulance booked successfully!');</script>";
             echo "<script>window.location.href = 'index.html';</script>";

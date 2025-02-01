@@ -29,22 +29,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $dob = $_POST['dob'] ?? null;
     $age = $_POST['age'] ?? null;
     $mobile = $_POST['mobile'] ?? null;
-    $address = $_POST['address'] ?? null;
+    $village = $_POST['village'] ?? null;
+    $post = $_POST['post'] ?? null;
+    $pincode = $_POST['pincode'] ?? null;
+    $dist = $_POST['dist'] ?? null;
     $reason = $_POST['reason'] ?? null;
 
     // Validate required fields
     if (
         !$firstname || !$lastname || !$f_firstname || !$f_lastname ||
         !$m_firstname || !$m_lastname || !$gender || !$dob ||
-        !$age || !$mobile || !$address || !$reason
+        !$age || !$mobile || !$village || !$post || !$pincode || !$dist || !$reason
     ) {
         die("Please fill in all required fields.");
     }
 
     // SQL query to insert data
     $sql = "INSERT INTO appointments 
-            (firstname, middlename, lastname, f_firstname, f_middlename, f_lastname, m_firstname, m_middlename, m_lastname, gender, dob, age, mobile, address, reason) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            (firstname, middlename, lastname, f_firstname, f_middlename, f_lastname, m_firstname, m_middlename, m_lastname, gender, dob, age, mobile, village, post, pincode, dist, reason) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 
@@ -53,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $stmt->bind_param(
-        "sssssssssssisss",
+        "sssssssssssissssss",
         $firstname,
         $middlename,
         $lastname,
@@ -67,7 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $dob,
         $age,
         $mobile,
-        $address,
+        $village,
+        $post,
+        $pincode,
+        $dist,
         $reason
     );
 

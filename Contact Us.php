@@ -1,12 +1,15 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $name = htmlspecialchars(trim($_POST['name'] ?? ''));
+    $firstname = htmlspecialchars(trim($_POST['firstname'] ?? ''));
+    $middlename = htmlspecialchars(trim($_POST['middlename'] ?? ''));
+    $lastname = htmlspecialchars(trim($_POST['lastname'] ?? ''));    
+    $gender = htmlspecialchars(trim($_POST['gender'] ?? ''));    
     $email = htmlspecialchars(trim($_POST['email'] ?? ''));
     $subject = htmlspecialchars(trim($_POST['subject'] ?? ''));
     $problem = htmlspecialchars(trim($_POST['problem'] ?? ''));
 
-    if (empty($name) || empty($email) || empty($subject) || empty($problem)) {
+    if (empty($firstname) ||  || empty($email) || empty($subject) || empty($problem)) {
         echo "All fields are required. Please fill all the fields.";
         exit;
     }

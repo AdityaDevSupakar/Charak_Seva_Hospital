@@ -4,10 +4,9 @@ $db_username = "root";
 $db_password = "";
 $db_name = "d_hms";
 
-// Create a connection
+
 $conn = new mysqli($servername, $db_username, $db_password, $db_name);
 
-// Check the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -15,10 +14,15 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errors = [];
 
-    // Input data with fallback values
-    $name = $_POST['name'] ?? '';
-    $fatherName = $_POST['father-name'] ?? '';
-    $motherName = $_POST['mother-name'] ?? '';
+    $firstname = $_POST['firstname'] ?? '';
+    $middlename = $_POST['middlename'] ?? '';
+    $lastname = $_POST['lastname'] ?? '';
+    $f_firstname = $_POST['f_firstname'] ?? '';
+    $f_middlename = $_POST['f_middlename'] ?? '';
+    $f_lastname = $_POST['f_lastname'] ?? '';
+    $m_firstname = $_POST['m_firstname'] ?? '';
+    $m_middlename = $_POST['m_middlename'] ?? '';
+    $m_lastname = $_POST['m_lastname'] ?? '';
     $gender = $_POST['gender'] ?? '';
     $dob = $_POST['dob'] ?? '';
     $age = $_POST['age'] ?? '';
@@ -31,37 +35,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $state = $_POST['state'] ?? '';
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
-    $photo = $_FILES['photo'] ?? null;
-
-    // Validate inputs
-    if (empty($name)) $errors[] = "Name is required.";
-    if (empty($username)) $errors[] = "Username is required.";
-    if (empty($password)) $errors[] = "Password is required.";
-    if (!empty($mobile) && !preg_match('/^\d{10}$/', $mobile)) $errors[] = "Invalid mobile number.";
-    if (!empty($pincode) && !preg_match('/^\d{6}$/', $pincode)) $errors[] = "Invalid pincode.";
-
-    // Process photo
+    
     $photoPath = null;
-    if ($photo && $photo['error'] === UPLOAD_ERR_OK) {
+    if (!empty($_FILES['photo']['name'])) {
         $uploadDir = "Uploads/";
-        $photoPath = $uploadDir . basename($photo['name']);
-        if (!move_uploaded_file($photo['tmp_name'], $photoPath)) {
+        $fileName = time() . "_" . basename($_FILES['photo']['name']);
+        $photoPath = $uploadDir . $fileName;
+
+        if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoPath)) {
             $errors[] = "Failed to upload photo.";
         }
     }
 
-    // If no errors, proceed with the database operation
+    if ($photoPath === null) {
+        $errors[] = "Photo is required.";
+    }
+
+    // // Validate inputs
+    // if (empty($name)) $errors[] = "Name is required.";
+    // if (empty($username)) $errors[] = "Username is required.";
+    // if (empty($password)) $errors[] = "Password is required.";
+    // if (!empty($mobile) && !preg_match('/^\d{10}$/', $mobile)) $errors[] = "Invalid mobile number.";
+    // if (!empty($pincode) && !preg_match('/^\d{6}$/', $pincode)) $errors[] = "Invalid pincode.";
+    
     if (empty($errors)) {
         $sql = "INSERT INTO registration
-            (name, fathername, mothername, gender, dob, age, mobile, amobile, village, post, pincode, district, state, username, password, photo_path) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            (firstname, middlename, lastname, f_firstname, f_middlename, f_lastname, m_firstname, m_middlename, m_lastname, gender, dob, age, mobile, amobile, village, post, pincode, district, state, username, password, photo_path) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
             $stmt->bind_param(
-                "ssssssssssssssss",
-                $name, $fatherName, $motherName, $gender, $dob, $age, $mobile, $altMobile, $village, $post, $pincode, $district, $state, $username, $password, $photoPath
+                "ssssssssssssssssssssss",
+                $firstname, $middlename, $lastname, $f_firstname, $f_middlename, $f_lastname, $m_firstname, $m_middlename, $m_lastname, $gender, $dob, $age, $mobile, $altMobile, $village, $post, $pincode, $district, $state, $username, $password, $photoPath
             );
 
             if ($stmt->execute()) {
@@ -75,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error preparing statement: " . $conn->error;
         }
     } else {
-        // Display errors
+        
         foreach ($errors as $error) {
             echo "<p style='color: red;'>$error</p>";
         }

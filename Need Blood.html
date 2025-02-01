@@ -10,24 +10,17 @@
     <!-- Custom CSS -->
     <link href="HMS.css" rel="stylesheet">
     <style>
-        .container {
-            margin-top: 50px;
-            max-width: 600px;
+        body {
             background-color: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
         }
 
-        button {
-            background-color: #37a2ef;
-            color: white;
-            border: none;
-            height: 45px;
-            border-radius: 7px;
-        }
-
-        button:hover {
-            background-color: #c1275c;
+        .container {
+            display: block;
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .error {
@@ -66,15 +59,14 @@
         <h2 class="text-center">Request Blood</h2>
         <br><br>
 
-        <!-- Step 1: Mobile Number -->
         <div id="step-1">
             <form id="mobileForm">
                 <div class="mb-3">
                     <label for="mobileNumber" class="form-label">Enter Mobile Number</label>
-                    <input type="number" class="form-control" id="mobileNumber" placeholder="Enter mobile number"
-                        required>
+                    <input type="number" class="form-control" id="mobileNumber" name="mobileNumber"
+                        placeholder="Enter mobile number" required>
                 </div>
-                <button type="submit" class="w-100 btn-primary">Get OTP</button>
+                <button type="submit" class="w-100 btn btn-primary">Get OTP</button>
             </form>
         </div>
 
@@ -82,25 +74,45 @@
             <form id="otpForm">
                 <div class="mb-3">
                     <label for="otp" class="form-label">Enter OTP</label>
-                    <input type="number" class="form-control" id="otp" placeholder="Enter OTP" required>
+                    <input type="number" class="form-control" id="otp" name="otp" placeholder="Enter OTP" required>
                 </div>
                 <button type="submit" class="w-100 btn btn-success">Verify OTP</button>
             </form>
         </div>
 
-        <!-- Step 3: Details Form -->
         <div id="step-3" style="display: none;">
             <form id="detailsForm" method="post" action="Need Blood.php">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Patient Name<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter patient name"
+                    <label class="form-label">Patient's Name<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name"
+                        required>
+                    <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Middle Name">
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name"
                         required>
                 </div>
-
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Gender<span class="text-danger">*</span></label>
+                    <select id="gender" name="gender" class="form-control" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age<span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="age" name="age" placeholder="Enter Age" required>
+                </div>
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Mobile<span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="mobile" name="mobile"
+                        placeholder="Re-enter mobile number" required>
+                    <span class="text-danger" id="mobileNumberError"></span>
+                </div>
                 <div class="mb-3">
                     <label for="bloodGroup" class="form-label">Blood Group<span class="text-danger">*</span></label>
                     <select class="form-control" id="bloodGroup" name="bloodGroup" required>
-                        <option value="" disabled selected>Select blood group</option>
+                        <option value="" disabled selected>Select Blood Group</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
                         <option value="B+">B+</option>
@@ -111,75 +123,62 @@
                         <option value="O-">O-</option>
                     </select>
                 </div>
-
                 <div class="mb-3">
-                    <label for="mobile" class="form-label">Mobile<span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number"
-                        required>
+                    <label for="username" class="form-label">Username<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="username" name="username"
+                        placeholder="Enter Your Username" required>
                 </div>
-
                 <div class="mb-3">
                     <label for="hospital" class="form-label">Hospital</label>
                     <select class="form-control" id="hospital" name="hospital" required>
                         <option value="CHARAK SEVA HOSPITAL">CHARAK SEVA HOSPITAL</option>
                     </select>
                 </div>
-
                 <button type="submit" class="btn btn-danger w-100">Submit Request</button>
             </form>
-
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const step1 = document.getElementById('step-1');
-        const step2 = document.getElementById('step-2');
-        const step3 = document.getElementById('step-3');
 
+        <script>
+            document.getElementById('mobileForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const mobileNumber = document.getElementById('mobileNumber').value;
+                if (/^\d{10}$/.test(mobileNumber)) {
+                    alert('OTP sent to ' + mobileNumber);
+                    document.getElementById('step-1').style.display = 'none';
+                    document.getElementById('step-2').style.display = 'block';
+                } else {
+                    alert('Invalid Mobile Number. Please enter exactly 10 digits.');
+                }
+            });
 
-        document.getElementById('mobileForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const mobileNumber = document.getElementById('mobileNumber').value;
+            document.getElementById('otpForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const otp = document.getElementById('otp').value;
+                if (otp === '1234') {
+                    alert('OTP verified successfully');
+                    document.getElementById('step-2').style.display = 'none';
+                    document.getElementById('step-3').style.display = 'block';
+                } else {
+                    alert('Invalid OTP, please try again.');
+                }
+            });
 
-
-            if (/^\d{10}$/.test(mobileNumber)) {
-                alert('OTP sent to ' + mobileNumber);
-                step1.style.display = 'none';
-                step2.style.display = 'block';
-            } else {
-                alert('Invalid Mobile Number. Please enter exactly 10 digits.');
-            }
-        });
-
-        document.getElementById('otpForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const otp = document.getElementById('otp').value;
-
-            if (otp === '1234') {
-                alert('OTP verified successfully');
-                step2.style.display = 'none';
-                step3.style.display = 'block';
-            } else {
-                alert('Invalid OTP, please try again.');
-            }
-        });
-
-        document.getElementById('detailsForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const bookerName = document.getElementById('name').value;
-            const mobile = document.getElementById('mobile').value;
-            const location = document.getElementById('mobile').value;
-            const landmark = document.getElementById('hospital').value;
-
-            if (bookerName && mobile && location && landmark) {
-                alert('Submitting the request for ' + bookerName);
+            document.getElementById('detailsForm').addEventListener('submit', function (event) {
+                const mobileNumber = document.getElementById('mobileNumber').value;
+                const mobile = document.getElementById('mobile').value;
+                const errorElement = document.getElementById('mobileNumberError');
+                if (mobileNumber !== mobile) {
+                    event.preventDefault();
+                    errorElement.textContent = "Mobile Number Doesn't Match!";
+                } else {
+                    errorElement.textContent = "";
+                }
+            });
+            if (firstname && lastname && gender && age && mobile && bloodGroup && username) {
+                alert('Submitting the request for ' + firstname + middlename + lastname + 'for blood group' + bloodGroup);
                 this.submit();
             } else {
                 alert('Please fill all the fields.');
-            }
-        });
-    </script>
-</body>
 
-</html>
+            };
+        </script>

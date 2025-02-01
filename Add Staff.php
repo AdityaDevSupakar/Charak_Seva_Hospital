@@ -1,83 +1,128 @@
 <?php
-    $servername = "localhost";
-    $db_username = "root";
-    $db_password = "";
-    $db_name = "d_hms";
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$db_name = "d_hms";
 
-    // Create a connection
-    $conn = new mysqli($servername, $db_username, $db_password, $db_name);
+// Database connection
+$conn = new mysqli($servername, $db_username, $db_password, $db_name);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Database connection successful.<br>";
 
-    // Check the connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collecting and sanitizing form data
+    $salutation = $conn->real_escape_string($_POST["salutation"]);
+    $firstname = $conn->real_escape_string($_POST["firstname"]);
+    $middlename = !empty($_POST["middlename"]) ? $conn->real_escape_string($_POST["middlename"]) : null;
+    $lastname = $conn->real_escape_string($_POST["lastname"]);
+    $f_salutation = $conn->real_escape_string($_POST["f_salutation"]);
+    $f_firstname = $conn->real_escape_string($_POST["f_firstname"]);
+    $f_middlename = !empty($_POST["f_middlename"]) ? $conn->real_escape_string($_POST["f_middlename"]) : null;
+    $f_lastname = $conn->real_escape_string($_POST["f_lastname"]);
+    $m_salutation = $conn->real_escape_string($_POST["m_salutation"]);
+    $m_firstname = $conn->real_escape_string($_POST["m_firstname"]);
+    $m_middlename = !empty($_POST["m_middlename"]) ? $conn->real_escape_string($_POST["m_middlename"]) : null;
+    $m_lastname = $conn->real_escape_string($_POST["m_lastname"]);
+    $gender = $conn->real_escape_string($_POST["gender"]);
+    $dob = $conn->real_escape_string($_POST["dob"]);
+    $c_age = intval($_POST["c_age"]);
+    $mobile = $conn->real_escape_string($_POST["mobile"]);
+    $responsibility = $conn->real_escape_string($_POST["responsibility"]);
+    $adhaar = $conn->real_escape_string($_POST["adhaar"]);
+    $matric_percentage = isset($_POST["matric"]) ? intval($_POST["matric"]) : null;
+    $intermediate_percentage = isset($_POST["inter"]) ? intval($_POST["inter"]) : null;
+    $other_degrees = !empty($_POST["other"]) ? $conn->real_escape_string($_POST["other"]) : null;
+    $username = $conn->real_escape_string($_POST["username"]);
+    $password = $conn->real_escape_string($_POST["password"]);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Collect and sanitize inputs
-        $salutation = $conn->real_escape_string($_POST["salutation"]);
-        $firstname = $conn->real_escape_string($_POST["firstname"]);
-        $lastname = $conn->real_escape_string($_POST["lastname"]);
-        $fatherFirstname = $conn->real_escape_string($_POST["fatherFirstname"]);
-        $fatherMiddlename = $conn->real_escape_string($_POST["fatherMiddlename"]);
-        $fatherLastname = $conn->real_escape_string($_POST["fatherLastname"]);
-        $motherFirstname = $conn->real_escape_string($_POST["motherFirstname"]);
-        $motherMiddlename = $conn->real_escape_string($_POST["motherMiddlename"]);
-        $motherLastname = $conn->real_escape_string($_POST["motherLastname"]);
-        $gender = $conn->real_escape_string($_POST["gender"]);
-        $dob = $conn->real_escape_string($_POST["dob"]);
-        $mobile = $conn->real_escape_string($_POST["mobile"]);
-        $degree = $conn->real_escape_string($_POST["degree"]);
-        $joiningDate = $conn->real_escape_string($_POST["joiningDate"]);
-        $adhaar = $conn->real_escape_string($_POST["adhaar"]);
 
-        // Handle file upload
-        $profilePath = null;
-        if (isset($_FILES['profile']) && $_FILES['profile']['error'] === UPLOAD_ERR_OK) {
-            $fileTmpPath = $_FILES['profile']['tmp_name'];
-            $fileName = $_FILES['profile']['name'];
-            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-            $allowedExtensions = ['jpg', 'jpeg', 'png'];
+    $profile_pic = null;
+    if (isset($_FILES['profile']) && $_FILES['profile']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['profile']['tmp_name'];
+        $fileName = $_FILES['profile']['name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png'];
 
-            if (in_array($fileExtension, $allowedExtensions)) {
-                $uploadFileDir = 'uploads/';
-                if (!is_dir($uploadFileDir)) {
-                    mkdir($uploadFileDir, 0755, true);
-                }
-                $destPath = $uploadFileDir . uniqid() . '.' . $fileExtension;
-
-                if (move_uploaded_file($fileTmpPath, $destPath)) {
-                    $profilePath = $destPath;
-                } else {
-                    die("Error moving uploaded file.");
-                }
-            } else {
-                die("Unsupported file format.");
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $uploadFileDir = 'Uploads/';
+            if (!is_dir($uploadFileDir)) {
+                mkdir($uploadFileDir, 0755, true);
             }
-        }
+            $destPath = $uploadFileDir . uniqid() . '.' . $fileExtension;
 
-        // Validate mobile and adhaar
-        if (!preg_match('/^\d{10}$/', $mobile)) {
-            die("Invalid mobile number. Please enter a 10-digit number.");
-        }
-
-        if (!preg_match('/^\d{12}$/', $adhaar)) {
-            die("Invalid Adhaar number. Please enter a 12-digit number.");
-        }
-
-        // Prepare and bind
-        $stmt = $conn->prepare(
-            "INSERT INTO staff (salutation, firstname, lastname, father_firstname, father_middlename, father_lastname, mother_firstname, mother_middlename, mother_lastname, gender, dob, mobile, degree, joining_date, adhaar, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        );
-        $stmt->bind_param("ssssssssssssssss",$salutation,$firstname,$lastname,$fatherFirstname,$fatherMiddlename,$fatherLastname,$motherFirstname,$motherMiddlename,$motherLastname,$gender,$dob,$mobile,$degree,$joiningDate,$adhaar,$profilePath);
-
-        if ($stmt->execute()) {
-            echo "Staff added successfully!";
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                $profile_pic = $destPath;
+            } else {
+                die("Error moving uploaded file.");
+            }
         } else {
-            echo "Error: " . $stmt->error;
+            die("Unsupported file format.");
         }
-
-        $stmt->close();
     }
 
-    $conn->close();
+    // Validations
+    if (!preg_match('/^\d{10}$/', $mobile)) {
+        die("Invalid mobile number. Please enter a 10-digit number.");
+    }
+
+    if (!preg_match('/^\d{12}$/', $adhaar)) {
+        die("Invalid Aadhaar number. Please enter a 12-digit number.");
+    }
+
+    // Insert statement
+    $stmt = $conn->prepare(
+        "INSERT INTO staffs (
+            salutation, firstname, middlename, lastname, f_salutation, f_firstname, f_middlename, f_lastname, 
+            m_salutation, m_firstname, m_middlename, m_lastname, gender, dob, c_age, mobile, responsibility, adhaar, 
+            matric_percentage, intermediate_percentage, other_degrees, profile_pic, username, password
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+
+    if (!$stmt) {
+        die("Error preparing SQL statement: " . $conn->error);
+    }
+    echo "Prepared statement created successfully.<br>";
+
+    // Binding parameters
+    $stmt->bind_param(
+        "ssssssssssssssisssiissss",
+        $salutation,
+        $firstname,
+        $middlename,
+        $lastname,
+        $f_salutation,
+        $f_firstname,
+        $f_middlename,
+        $f_lastname,
+        $m_salutation,
+        $m_firstname,
+        $m_middlename,
+        $m_lastname,
+        $gender,
+        $dob,
+        $c_age,
+        $mobile,
+        $responsibility,
+        $adhaar,
+        $matric_percentage,
+        $intermediate_percentage,
+        $other_degrees,
+        $profile_pic,
+        $username,
+        $password
+
+    );
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "<script>alert('Staff added successfully!'); window.location.href = 'Staffs.php';</script>";
+    } else {
+        echo "Error executing query: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+$conn->close();
 ?>

@@ -7,6 +7,12 @@
     <title>Registration Form</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="HMS.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             margin: 20px;
@@ -44,37 +50,73 @@
     <div class="container">
         <h2 class="text-center mb-3 "><u>REGISTRATION FORM</u></h2>
 
-        <!-- Form starts -->
         <form id="registrationForm" onsubmit="return validateForm()" method="post" action="Register.php"
             enctype="multipart/form-data">
             <div class="frameset">
-                <h3>Patient Details</h3>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                        <span class="error" id="nameError"></span>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="fathers-name" class="form-label">Father's Name</label>
-                        <input type="text" class="form-control" id="fathers-name" name="father-name" required>
-                        <span class="error" id="fathersNameError"></span>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="mothers-name" class="form-label">Mother's Name</label>
-                        <input type="text" class="form-control" id="mothers-name" name="mother-name" required>
-                        <span class="error" id="mothersNameError"></span>
+                <div class="mb-3 text-center">
+                    <label for="profile" class="form-label">
+                        <i class="fa fa-id-badge" aria-hidden="true" style="font-size: 100px;"></i>
+                    </label>
+                    <div class="mb-3">
+                        <label for="photo" class="form-label">Upload Photo</label>
+                        <input type="file" class="form-control" id="photo" accept="image/*" name="photo" required>
+                        <small class="text-muted">Supported formats: JPG, PNG, GIF only.</small>
+                        <span class="error" id="photoError"></span>
                     </div>
                 </div>
-
+                <h6>NAME :</h6>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="firstname" name="firstname" required
+                            placeholder="First Name">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="middlename" name="middlename"
+                            placeholder="Middle Name">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="lastname" name="lastname" required
+                            placeholder="Last Name">
+                    </div>
+                </div>
+                <h6>FATHER's NAME :</h6>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="f_firstname" name="f_firstname" required
+                            placeholder="First Name">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="f_middlename" name="f_middlename"
+                            placeholder="Middle Name">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="f_lastname" name="f_lastname" required
+                            placeholder="Last Name">
+                    </div>
+                </div>
+                <h6>MOTHER's NAME :</h6>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="m_firstname" name="m_firstname" required
+                            placeholder="First Name">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="m_middlename" name="m_middlename"
+                            placeholder="Middle Name">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="m_lastname" name="m_lastname" required
+                            placeholder="Last Name">
+                    </div>
+                </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="gender" class="form-label">Gender</label>
                         <select class="form-control" id="gender" name="gender" required>
                             <option value="">Select</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+                            <option value="MALE">MALE</option>
+                            <option value="FEMALE">FEMALE</option>
+                            <option value="OTHER">OTHER</option>
                         </select>
                         <span class="error" id="genderError"></span>
                     </div>
@@ -101,15 +143,7 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="photo" class="form-label">Upload Photo</label>
-                    <input type="file" class="form-control" id="photo" accept="image/*" name="photo" required>
-                    <small class="text-muted">Supported formats: JPG, PNG, GIF.</small>
-                    <span class="error" id="photoError"></span>
-                </div>
-
             </div>
-
 
             <div class="frameset">
                 <h3>Address Details</h3>
@@ -174,7 +208,6 @@
         </form>
     </div>
 
-    <!-- JavaScript to calculate age and validate form -->
     <script>
         function calculateAge() {
             const dob = document.getElementById('dob').value;
@@ -189,14 +222,24 @@
                 document.getElementById('age').value = age;
             }
         }
-
         function validateForm() {
             let isValid = true;
-            const requiredFields = ['name', 'fathers-name', 'mothers-name', 'gender', 'dob', 'mobile', 'pincode', 'username', 'password', 'confirm-password', 'photo'];
+
+            // Correct list of required fields based on provided IDs
+            const requiredFields = [
+                'firstname', 'lastname', 'f_firstname', 'f_lastname',
+                'm_firstname', 'm_lastname', 'gender', 'dob', 'mobile',
+                'pincode', 'username', 'password', 'confirm-password', 'photo'
+            ];
+
+            // Error messages for validation
             const errorMessages = {
-                name: "Please enter your name.",
-                "fathers-name": "Please enter your father's name.",
-                "mothers-name": "Please enter your mother's name.",
+                firstname: "Please enter your first name.",
+                lastname: "Please enter your last name.",
+                f_firstname: "Please enter your father's first name.",
+                f_lastname: "Please enter your father's last name.",
+                m_firstname: "Please enter your mother's first name.",
+                m_lastname: "Please enter your mother's last name.",
                 gender: "Please select your gender.",
                 dob: "Please enter your date of birth.",
                 mobile: "Please enter a valid 10-digit mobile number.",
@@ -211,15 +254,16 @@
             requiredFields.forEach(function (fieldId) {
                 const field = document.getElementById(fieldId);
                 const errorSpan = document.getElementById(fieldId + 'Error');
-                if (field && field.value === "") {
+
+                if (field && field.value.trim() === "") {
                     isValid = false;
-                    errorSpan.textContent = errorMessages[fieldId];
+                    if (errorSpan) errorSpan.textContent = errorMessages[fieldId];
                 } else {
-                    errorSpan.textContent = "";
+                    if (errorSpan) errorSpan.textContent = "";
                 }
             });
 
-            // Additional validation
+            // Additional validations
             const mobile = document.getElementById('mobile').value;
             if (mobile && (mobile.length !== 10 || isNaN(mobile))) {
                 document.getElementById('mobileError').textContent = "Please enter a valid 10-digit mobile number.";
@@ -239,8 +283,8 @@
                 isValid = false;
             }
 
-            const photo = document.getElementById('photo').files[0];
-            if (!photo) {
+            const photo = document.getElementById('photo').files;
+            if (!photo || photo.length === 0) {
                 document.getElementById('photoError').textContent = "Please upload a photo.";
                 isValid = false;
             }
@@ -248,9 +292,6 @@
             return isValid;
         }
     </script>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -20,73 +20,108 @@
 <body>
     <header>
         <div class="header-top">
-            <!-- Remove unnecessary empty divs -->
+            <div class="left-top-header">
+                <div class="first"></div>
+                <div class="second"></div>
+                <div class="third"></div>
+                <div class="fourth"></div>
+                <div class="fifth"></div>
+                <div class="sixth"></div>
+                <div class="seventh"></div>
+            </div>
         </div>
         <hr>
     </header>
     <div class="container">
         <h1 class="text-center mb-3"><u>ADD STAFF</u></h1><br>
 
-        <form id="registrationForm">
+        <form id="registrationForm" method="post" action="Add Staff.php">
             <div class="frameset">
-                <div class="col-md-12 d-flex flex-column align-items-center">
+                <div class="mb-3 text-center">
                     <label for="profile" class="form-label">
-                        <i class="fa fa-id-badge" aria-hidden="true" style="font-size: 108px;"></i>
+                        <i class="fa fa-id-badge" aria-hidden="true" style="font-size: 100px;"></i>
                     </label>
-                    <input type="file" class="form-control" id="profile" style="width: 100px;">
+                    <input type="file" class="form-control" id="profile" name="profile" required>
                 </div>
+                <h3 class="text-center mb-3 bg-primary text-white">PERSONAL INFORMATION</h3><br>
+                <h6>NAME :</h6>
+                <div class="col-md-4">
+                    <select class="form-control" id="salutation" name="salutation" required>
+                        <option value="" disabled selected>Salutation</option>
+                        <option value="MR">MR</option>
+                        <option value="MISS">MISS</option>
+                        <option value="MRS">MRS</option>
+                        <option value="SHRI">SHRI</option>
+                        <option value="SHRIMATI">SHRIMATI</option>
+                    </select>
+                </div><br>
 
-                <br>
-                <h6>FULL NAME :</h6>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <select class="form-control" id="salutation" required>
-                            <option value="" disabled selected>Salutation</option>
-                            <option value="MR">MR</option>
-                            <option value="MRS">MRS</option>
-                            <option value="SHRIMAN">SHRIMAN</option>
-                            <option value="SHRIMATI">SHRIMATI</option>
-                        </select>
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name"
+                            required>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="firstname" placeholder="First Name" required>
+                        <input type="text" class="form-control" id="middlename" name="middlename"
+                            placeholder="Middle Name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="lastname" placeholder="Last Name" required>
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name"
+                            required>
                     </div>
                 </div>
             </div>
 
             <h6>FATHER's NAME :</h6>
+            <div class="col-md-4">
+                <select class="form-control" id="salutation" name="f_salutation" required>
+                    <option value="" disabled selected>Salutation</option>
+                    <option value="MR">MR</option>
+                    <option value="SHRI">SHRI</option>
+                </select>
+            </div><br>
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="fatherFirstname" placeholder="First Name" required>
+                    <input type="text" class="form-control" id="f_firstname" name="f_firstname" placeholder="First Name"
+                        required>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="fatherMiddlename" placeholder="Middle Name">
+                    <input type="text" class="form-control" id="f_middlename" name="f_middlename"
+                        placeholder="Middle Name">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="fatherLastname" placeholder="Last Name" required>
+                    <input type="text" class="form-control" id="f_lastname" name="f_lastname" placeholder="Last Name"
+                        required>
                 </div>
             </div>
 
             <h6>MOTHER's NAME :</h6>
+            <div class="col-md-4">
+                <select class="form-control" id="salutation" name="m_salutation" required>
+                    <option value="" disabled selected>Salutation</option>
+                    <option value="MRS">MRS</option>
+                    <option value="SHRIMATI">SHRIMATI</option>
+                </select>
+            </div><br>
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="motherFirstname" placeholder="First Name" required>
+                    <input type="text" class="form-control" id="m_firstname" name="m_firstname" placeholder="First Name"
+                        required>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="motherMiddlename" placeholder="Middle Name">
+                    <input type="text" class="form-control" id="m_middlename" name="m_middlename"
+                        placeholder="Middle Name">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="motherLastname" placeholder="Last Name" required>
+                    <input type="text" class="form-control" id="m_lastname" name="m_lastname" placeholder="Last Name"
+                        required>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-4">
                     <h6>GENDER :</h6>
-                    <select class="form-control" id="gender" required>
+                    <select class="form-control" id="gender" name="gender" required>
                         <option value="" disabled selected>Select</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -96,42 +131,94 @@
                 </div>
                 <div class="col-md-4">
                     <h6>DATE OF BIRTH :</h6>
-                    <input type="date" class="form-control" id="dob" required onchange="calculateAge()">
+                    <input type="date" class="form-control" id="dob" name="dob" required onchange="calculateAge()">
                     <span class="error" id="dobError"></span>
                 </div>
                 <div class="col-md-4">
                     <h6>CURRENT AGE :</h6>
-                    <input type="text" class="form-control" id="age" readonly>
+                    <input type="text" class="form-control" id="age" name="c_age" readonly>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-md-4">
                     <h6>MOBILE :</h6>
-                    <input type="text" class="form-control" id="mobile" maxlength="10" required
+                    <input type="text" class="form-control" id="mobile" name="mobile" maxlength="10" required
                         placeholder="Enter 10-digit number">
                     <span class="error" id="mobileError"></span>
                 </div>
                 <div class="col-md-4">
                     <h6>RESPONSIBILITY :</h6>
-                    <input type="text" class="form-control" id="degree" placeholder="Enter each with comma separation."
-                        required>
+                    <input type="text" class="form-control" id="degree" name="responsibility"
+                        placeholder="Enter each with comma separation." required>
                 </div>
-
                 <div class="col-md-4">
-                    <h6>JOINING DATE :</h6>
-                    <input type="date" class="form-control" id="joiningDate" required>
+                    <h6>ADHAAR NUMBER :</h6>
+                    <input type="text" class="form-control" id="adhaar" name="adhaar" maxlength="12" required
+                        placeholder="Enter 12-digit number">
+                    <span class="error" id="adhaarError"></span>
                 </div>
             </div>
-            <div class="col-md-4">
-                <h6>ADHAAR NUMBER :</h6>
-                <input type="text" class="form-control" id="adhaar" maxlength="12" required
-                    placeholder="Enter 12-digit number">
-                <span class="error" id="adhaarError"></span>
-            </div>
-    </div><br>
+            <h3 class="text-center mb-3 bg-primary text-white">EDUCATION DETAILS</h3><br>
+            <div class=" row mb-3">
+                <div class="col-md-4">
+                    <h6>MATRICULATION :</h6>
+                    <input type="number" class="form-control" id="matric" name="matric" maxlength="3"
+                        placeholder="Enter Percentage." required>
+                    <!-- <select class="form-control" id="matric" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Percentage">Percentage</option>
+                        <option value="CGPA">CGPA</option>
+                    </select> -->
+                    <span class="error" id="metricError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>INTERMEDIATE :</h6>
+                    <input type="number" class="form-control" id="inter" name="inter" maxlength="3"
+                        placeholder="Enter Percentage.">
+                    <!-- <select class="form-control" id="intermediate" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Percentage">Percentage</option>
+                        <option value="CGPA">CGPA</option>
+                    </select> -->
+                    <span class="error" id="interError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>OTHER DEGREE NAMES :</h6>
+                    <input type="text" class="form-control" id="otherDegree" name="other" maxlength=""
+                        placeholder="Write With Comma Separation (If Many).">
 
-    <!-- Submit Button -->
+                </div>
+            </div>
+            <h3 class="text-center mb-3 bg-primary text-white">LOGIN DETAILS</h3><br>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <h6>USERNAME :</h6>
+                    <input type="text" class="form-control" id="userName" name="username" maxlength=""
+                        placeholder="Create Username." required>
+                    <!-- <select class="form-control" id="intermediate" required>
+                                    <option value="" disabled selected>Select</option>
+                                    <option value="Percentage">Percentage</option>
+                                    <option value="CGPA">CGPA</option>
+                                </select> -->
+                    <span class="error" id="nameError"></span>
+                </div>
+                <div class="col-md-4">
+                    <h6>PASSWORD :</h6>
+                    <input type="text" class="form-control" id="password" name="password" maxlength="16"
+                        placeholder="Create Password within(Max 16 digits)." required>
+
+                </div>
+                <div class="col-md-4">
+                    <h6>CONFIRM PASSWORD :</h6>
+                    <input type="text" class="form-control" id="confirmPassword" maxlength="16"
+                        placeholder="Re-Enter Password." required>
+
+                </div>
+            </div>
+
+
+    </div><br>
     <div class="text-center">
         <button type="submit" class="btn btn-primary w-50"><b>ADD </b></button>
     </div>
@@ -156,27 +243,58 @@
         document.getElementById('registrationForm').addEventListener('submit', function (event) {
             let isValid = true;
 
+            // Mobile validation
             const mobile = document.getElementById('mobile').value;
             if (mobile.length !== 10 || isNaN(mobile)) {
                 document.getElementById('mobileError').textContent = "Please enter a valid 10-digit mobile number.";
                 isValid = false;
             } else {
-                document.getElementById('mobileError').textContent = ""; // Clear error message if valid
+                document.getElementById('mobileError').textContent = "";
             }
 
+            // Aadhaar validation
             const adhaar = document.getElementById('adhaar').value;
             if (adhaar.length !== 12 || isNaN(adhaar)) {
-                document.getElementById('adhaarError').textContent = "Please enter a valid 12-digit Adhaar number.";
+                document.getElementById('adhaarError').textContent = "Please enter a valid 12-digit Aadhaar number.";
                 isValid = false;
             } else {
-                document.getElementById('adhaarError').textContent = ""; // Correct clearing of the Adhaar error message
+                document.getElementById('adhaarError').textContent = "";
             }
 
+            // Username validation
+            const username = document.getElementById('userName').value;
+            if (!username.trim()) {
+                document.getElementById('nameError').textContent = "Username cannot be empty.";
+                isValid = false;
+            } else {
+                document.getElementById('nameError').textContent = "";
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password.length === 0 || password.length > 16) {
+                document.getElementById('passwordError').textContent = "Password must be between 1 and 16 characters.";
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').textContent = "";
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = "Passwords do not match.";
+                isValid = false;
+            } else {
+                document.getElementById('confirmPasswordError').textContent = "";
+            }
+
+            // Prevent form submission if validation fails
             if (!isValid) {
-                event.preventDefault(); // Prevent form submission if validation fails
+                event.preventDefault();
             }
         });
     </script>
+
 </body>
 
 </html>
