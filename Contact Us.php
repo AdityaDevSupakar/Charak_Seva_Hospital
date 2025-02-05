@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = htmlspecialchars(trim($_POST['subject'] ?? ''));
     $problem = htmlspecialchars(trim($_POST['problem'] ?? ''));
 
-    if (empty($firstname) ||  || empty($email) || empty($subject) || empty($problem)) {
+    if (empty($firstname) || empty($middlename) || empty($lastname) || empty($gender)  || empty($email) || empty($subject) || empty($problem)) {
         echo "All fields are required. Please fill all the fields.";
         exit;
     }
@@ -43,13 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("INSERT INTO contact_us (name, email, subject, problem) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO contact_us (firstname, middlename, lastname, gender, email, subject, problem) VALUES (?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         echo "Statement preparation failed: " . $conn->error;
         exit;
     }
 
-    $stmt->bind_param("ssss", $name, $email, $subject, $problem);
+    $stmt->bind_param("sssssss", $firstname, $middlename, $lastname, $gender, $email, $subject, $problem);
 
     if ($stmt->execute()) {
         echo "Your message has been recorded.";

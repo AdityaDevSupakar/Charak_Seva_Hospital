@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fathersName = $_POST['fathersName'];
     $mothersName = $_POST['mothersName'];
     $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
     $village = $_POST['village'];
     $post = $_POST['post'];
     $district = $_POST['district'];
@@ -29,16 +30,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $landmark = $_POST['landmark'];
     $reason = $_POST['reason'];
 
+    // Validate inputs
+    if (!preg_match('/^\d{10}$/', $mobile)) {
+        die("<script>alert('Invalid mobile number. Please enter a 10-digit number.');</script>");
+    }
+    if (!preg_match('/^\d{6}$/', $pincode)) {
+        die("<script>alert('Invalid pincode. Please enter a 6-digit pincode.');</script>");
+    }
+
     // Prepare SQL query to insert data into the bed_booking table
-    $sql = "INSERT INTO bed_booking (mobile, name, father_name, mother_name, dob, village, post, district, state, pincode, landmark, reason)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO bed_booking (mobile, name, father_name, mother_name, dob, gender, village, post, district, state, pincode, landmark, reason) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssss", $mobile, $name, $fathersName, $mothersName, $dob, $village, $post, $district, $state, $pincode, $landmark, $reason);
+    $stmt->bind_param("sssssssssssss", $mobile, $name, $fathersName, $mothersName, $dob, $gender, $village, $post, $district, $state, $pincode, $landmark, $reason);
 
     // Execute the statement
     if ($stmt->execute()) {
-        echo "<script>alert('Booking successful!');</script>";
+        echo "<script>alert('Booking successful!'); window.location.href='http://localhost/Charak%20Seva%20Hospital/index.html';</script>";
     } else {
         echo "<script>alert('Error: " . $stmt->error . "');</script>";
     }

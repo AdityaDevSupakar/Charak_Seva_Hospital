@@ -32,6 +32,15 @@
 </head>
 
 <body>
+    <div id="google_element">
+        <script src="http://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+        <script>
+            function loadGoogleTranslate() {
+                new google.translate.TranslateElement("google_element");
+
+            }
+        </script>
+    </div>
     <div class="container">
         <h2 class="text-center mb-3" style="font-weight:700;font-size:xx-large;"><u>BOOK APPOINTMENT</u></h2>
 
@@ -109,7 +118,7 @@
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <h6>MOBILE :</h6>
+                        <h6>MOBILE NUMBER :</h6>
                         <input type="number" class="form-control" id="mobile" name="mobile" maxlength="10" required>
                         <span class="error" id="mobileError"></span>
                     </div>

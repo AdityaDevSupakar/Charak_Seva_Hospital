@@ -41,9 +41,14 @@
                 <div class="eleventh"></div>
                 <div class="tweveth"></div>
             </div>
-            <div class="right-top-header">
-                <a class="navbar-brand" href="#"><i class="fa fa-keyboard-o"
-                        style="font-size:20px;color:rgb(8, 133, 250);padding:4px"><b>Eng/हिंदी</b></i></a>
+            <div id="google_element">
+                <script src="http://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+                <script>
+                    function loadGoogleTranslate() {
+                        new google.translate.TranslateElement("google_element");
+
+                    }
+                </script>
             </div>
 
         </div>
@@ -79,6 +84,15 @@
                 <div class="mb-3">
                     <label for="dob" class="form-label">Date of Birth</label>
                     <input type="date" class="form-control" id="dob" name="dob" required>
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select class="form-control" id="gender" name="gender" required>
+                        <option value="" selected disabled>SELECT GENDER</option>
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="village" class="form-label">Village</label>

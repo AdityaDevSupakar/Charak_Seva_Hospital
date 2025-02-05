@@ -50,9 +50,18 @@
                 <div class="eleventh"></div>
                 <div class="twelfth"></div>
             </div>
-            <div class="right-top-header">
-                <a class="navbar-brand" href="#"><i class="fa fa-keyboard-o"
+            <!-- <div class="right-top-header">
+                <a class="navbar-brand" href="#" id="lang-toggle"><i class="fa fa-keyboard-o"
                         style="font-size:20px;color:black;padding:4px">Eng/हिंदी</i></a>
+            </div> -->
+            <div id="google_element">
+                <script src="http://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+                <script>
+                    function loadGoogleTranslate() {
+                        new google.translate.TranslateElement("google_element");
+
+                    }
+                </script>
             </div>
         </div>
         <hr>
@@ -61,7 +70,7 @@
     <section class="bg-body-secondary">
         <div class="container">
             <div class="row g-4">
-                <h1 class="text-center" style="color:red;"><b><u>We Welcome You !!</u></b></h1>
+                <h1 class="text-center" style="color:red;" id="welcome"><b><u>We Welcome You !!</u></b></h1>
 
                 <div class="row">
 
@@ -69,19 +78,59 @@
                         <div class="card" style="width: 18rem;">
                             <img src="Photos/Patients (2).png" class="card-img-top" alt="Placeholder">
                             <div class="card-body">
-                                <h3 class="card-title text-center"><b><u>OWN DATA</u></b></h3>
+                                <h3 class="card-title text-center"><b><u>YOUR REGISTERED DATA</u></b></h3>
                                 <p class="card-text">Your registered details which you entered in your details.</p>
                                 <a href="#" class="btn btn-primary w-100">VIEW</a>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="col-md-3">
                         <div class="card" style="width: 18rem;">
                             <img src="Photos/Patients (1).png" class="card-img-top" alt="Placeholder">
                             <div class="card-body">
-                                <h3 class="card-title text-center"><b><u>ADMITTED DATA</u></b></h3>
+                                <h3 class="card-title text-center"><b><u>YOUR ADMITTED DATA</u></b></h3>
+                                <p class="card-text">Your details about admitted records.</p>
+                                <a href="#" class="btn btn-primary w-100">VIEW</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="Photos/Patients (1).png" class="card-img-top" alt="Placeholder">
+                            <div class="card-body">
+                                <h3 class="card-title text-center"><b><u>NEED OXYGEN DATA</u></b></h3>
+                                <p class="card-text">Your details about admitted records.</p>
+                                <a href="#" class="btn btn-primary w-100">VIEW</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="Photos/Patients (1).png" class="card-img-top" alt="Placeholder">
+                            <div class="card-body">
+                                <h3 class="card-title text-center"><b><u>NEED BLOOD DATA</u></b></h3>
+                                <p class="card-text">Your details about admitted records.</p>
+                                <a href="#" class="btn btn-primary w-100">VIEW</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="Photos/Patients (1).png" class="card-img-top" alt="Placeholder">
+                            <div class="card-body">
+                                <h3 class="card-title text-center"><b><u>BEED BOOKING DATA</u></b></h3>
+                                <p class="card-text">Your details about admitted records.</p>
+                                <a href="#" class="btn btn-primary w-100">VIEW</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="Photos/Patients (1).png" class="card-img-top" alt="Placeholder">
+                            <div class="card-body">
+                                <h3 class="card-title text-center"><b><u>ABOUT CAREERS DATA</u></b></h3>
                                 <p class="card-text">Your details about admitted records.</p>
                                 <a href="#" class="btn btn-primary w-100">VIEW</a>
                             </div>
@@ -93,9 +142,33 @@
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Q3RrrTnIta5RtZjBmbnDNXtbqGJeDV+5TZgePGGjwrUt4p3Ni5h0dC8I0kdyB+4U" crossorigin="anonymous">
-        </script>
+        </script> -->
+    <script>
+
+        const translations = {
+            en: {
+                welcome: "We Welcome You !!",
+                registered: "YOUR REGISTERED DATA",
+                registeredText: "Your registered details which you entered in your details."
+            },
+            hi: {
+                welcome: "हम आपका स्वागत करते हैं !!",
+                registered: "आपका पंजीकृत डेटा",
+                registeredText: "आपके द्वारा दर्ज किए गए आपके पंजीकृत विवरण।"
+            }
+        };
+
+        let currentLang = 'en';
+
+        document.getElementById('lang-toggle').addEventListener('click', function () {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            document.getElementById('welcome').innerHTML = translations[currentLang].welcome;
+            document.getElementById('registered').innerHTML = translations[currentLang].registered;
+            document.getElementById('registered-text').innerHTML = translations[currentLang].registeredText;
+        });
+    </script>
 </body>
 
 </html>

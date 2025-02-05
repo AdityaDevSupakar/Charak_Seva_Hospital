@@ -49,9 +49,14 @@
 
 
             </div>
-            <div class="right-top-header">
-                <a class="navbar-brand" href="hindex.html"><i class="fa fa-keyboard-o"
-                        style="font-size:28px;color:black;padding:4px">Eng/हिंदी</i></a>
+            <div id="google_element">
+                <script src="http://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+                <script>
+                    function loadGoogleTranslate() {
+                        new google.translate.TranslateElement("google_element");
+
+                    }
+                </script>
             </div>
         </div>
         <nav class="bg-white">
@@ -148,7 +153,8 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page"
-                                    href="http://localhost/Charak%20Seva%20Hospital/Doctors.html">Blood Bank</a>
+                                    href="http://localhost/Charak%20Seva%20Hospital/Blood%20Bank.html">Blood
+                                    Bank</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page"
