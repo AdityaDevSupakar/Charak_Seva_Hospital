@@ -24,11 +24,14 @@
         $result = $conn->query($sql);
     
         if ($result->num_rows > 0) {
-            echo "Login successful!";
-            header("Location: User Panel.html");
+             $row = $result->fetch_assoc();
+             $_SESSION['user_id'] = $row['id'];
+             $_SESSION['full_name'] = $row['full_name'];
+             echo "Login successful!";
+             header("Location: User Panel.php");
             // Redirect to a dashboard or home page
         } else {
-            echo("Ooo sit!! Invalid Username or Password");
+            echo "<script>alert('Ooo sit!! Invalid Username or Password'); window.location.href = 'User Login.html';</script>";
         }
     }
     
