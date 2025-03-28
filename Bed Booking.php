@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data
     $mobile = $_POST['mobile'];
     $name = $_POST['name'];
-    $fathersName = $_POST['fathersName'];
-    $mothersName = $_POST['mothersName'];
+    $fathersName = $_POST['father_name'];
+    $mothersName = $_POST['mother_name'];
     $dob = $_POST['dob'];
     $gender = $_POST['gender'];
     $village = $_POST['village'];

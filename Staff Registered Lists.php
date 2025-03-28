@@ -3,7 +3,7 @@ $con = mysqli_connect("localhost", "root", "", "d_hms");
 if (!$con) {
     die("Sorry, something went wrong connecting to the database.");
 }
-$query = "SELECT * FROM bed_booking";
+$query = "SELECT * FROM registration";
 $result = mysqli_query($con, $query);
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ $result = mysqli_query($con, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTACT US LIST</title>
+    <title>REGISTERED PATIENTS</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -64,25 +64,38 @@ $result = mysqli_query($con, $query);
 
     <section class="bg-body-secondary">
         <div class="row g-4">
-            <h1 class="text-center font-arial-black"><b><u>CONTACT US LIST</u></b></h1>
+            <h1 class="text-center font-arial-black"><b><u>REGISTERED PATIENT LISTS</u></b></h1>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped text-center">
                     <thead class="table-dark">
                         <tr>
                             <th>S.N</th>
-                            <th>PATIENT's NAME</th>
-                            <th>FATHER's NAME</th>
-                            <th>MOTHER's NAME</th>
-                            <th>D.O.B</th>
+                            <th>Profile_Pic</th>
+                            <th>FIRST_NAME</th>
+                            <th>MIDDLE_NAME</th>
+                            <th>LAST_NAME</th>
+                            <th>FATHER's FIRST_NAME</th>
+                            <th>MIDDLE_NAME</th>
+                            <th>LAST_NAME</th>
+                            <th>MOTHER's FIRST_NAME</th>
+                            <th>MIDDLE_NAME</th>
+                            <th>LAST_NAME</th>
                             <th>GENDER</th>
+                            <th>DATE_OF_BIRTH</th>
+                            <th>CURRENT_AGE</th>
+                            <th>MOBILE_NUMBER</th>
+                            <th>ALTERNATE MOBILE_NUMBER</th>
                             <th>VILLAGE</th>
                             <th>POST</th>
-                            <th>DISTRICT</th>
+                            <th>PIN_CODE</th>
+                            <th>DIST</th>
                             <th>STATE</th>
-                            <th>PINCODE</th>
-                            <th>LANDMARK</th>
-                            <th>REASON</th>
-                            <th>REMOVE</th>
+                            <!-- <th>USERNAME</th> -->
+                            <!-- <th>PASSWORD</th> -->
+                            <th>JOINED_DATE</th>
+                            <th>LAST_MODIFIED</th>
+                            <!-- <th>MODIFY</th>
+                            <th>REMOVE</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -93,32 +106,42 @@ $result = mysqli_query($con, $query);
                        ?>
                         <tr>
                             <td><?php echo $row['sr_no']; ?></td>
-                            <!-- <td>
-                               <?php 
+                            <td>
+                                <?php 
                                     $photo_path = !empty($photo_path) ? $photo_path : 'Uploads/default-profile.jpg'; 
                                ?>
-                                   <img src="<?php echo htmlspecialchars($photo_path); ?>" 
-                                        alt="Profile Picture" onerror="this.onerror=null;this.src='Uploads/';" 
-                                        style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
-                           </td> -->
+                                <img src="<?php echo htmlspecialchars($photo_path); ?>" alt="Profile Picture"
+                                    onerror="this.onerror=null;this.src='Uploads/';"
+                                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                            </td>
 
 
-                            <td><?php echo $row['name']; ?></td>
-                            <td><?php echo $row['father_name']; ?></td>
-                            <td><?php echo $row['mother_name']; ?></td>
-                            <td><?php echo $row['dob']; ?></td>
+                            <td><?php echo $row['firstname']; ?></td>
+                            <td><?php echo $row['middlename']; ?></td>
+                            <td><?php echo $row['lastname']; ?></td>
+                            <td><?php echo $row['f_firstname']; ?></td>
+                            <td><?php echo $row['f_middlename']; ?></td>
+                            <td><?php echo $row['f_lastname']; ?></td>
+                            <td><?php echo $row['m_firstname']; ?></td>
+                            <td><?php echo $row['m_middlename']; ?></td>
+                            <td><?php echo $row['m_lastname']; ?></td>
                             <td><?php echo $row['gender']; ?></td>
+                            <td><?php echo $row['dob']; ?></td>
+                            <td><?php echo $row['age']; ?></td>
+                            <td><?php echo $row['mobile']; ?></td>
+                            <td><?php echo $row['amobile']; ?></td>
                             <td><?php echo $row['village']; ?></td>
                             <td><?php echo $row['post']; ?></td>
+                            <td><?php echo $row['pincode']; ?></td>
                             <td><?php echo $row['district']; ?></td>
                             <td><?php echo $row['state']; ?></td>
-                            <td><?php echo $row['pincode']; ?></td>
-                            <td><?php echo $row['landmark']; ?></td>
-                            <td><?php echo $row['reason']; ?></td>
+                            <!-- <td><?php echo $row['username']; ?></td> -->
+                            <!-- <td><?php echo $row['password']; ?></td> -->
+                            <td><?php echo $row['added_at']; ?></td>
+                            <td><?php echo $row['last_modified']; ?></td>
 
-
-                            <td><button class="btn btn-danger btn-sm">DELETE</button></td>
-
+                            <!-- <td><button class="btn btn-primary btn-sm">EDIT</button></td>
+                            <td><button class="btn btn-danger btn-sm">DELETE</button></td> -->
                         </tr>
                         <?php
                           }

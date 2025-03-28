@@ -3,16 +3,16 @@ $con = mysqli_connect("localhost", "root", "", "d_hms");
 if (!$con) {
     die("Sorry, something went wrong connecting to the database.");
 }
-$query = "SELECT * FROM oxygen_requests";
+$query = "SELECT * FROM book_ambulance";
 $result = mysqli_query($con, $query);
-?> 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OXYGEN REQUESTS LIST</title>
+    <title>NEED AMBULANCE</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -27,17 +27,17 @@ $result = mysqli_query($con, $query);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-        }
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        overscroll-behavior-y: none;
+    }
 
-        #b1 {
-            border-radius: 5;
-        }
+    #b1 {
+        border-radius: 5;
+    }
     </style>
 </head>
 
@@ -57,48 +57,43 @@ $result = mysqli_query($con, $query);
                 <div class="tenth"></div>
                 <div class="eleventh"></div>
                 <div class="twelfth"></div>
-             </div>
+            </div>
         </div>
         <hr>
     </header>
 
     <section class="bg-body-secondary">
         <div class="row g-4">
-            <h1 class="text-center font-arial-black"><b><u>OXYGEN REQUESTS LIST</u></b></h1>
+            <h1 class="text-center font-arial-black"><b><u>AMBULANCE REQUIRED LISTS</u></b></h1>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped text-center">
                     <thead class="table-dark">
                         <tr>
                             <th>S.N</th>
-                            <th>PATIENT's NAME</th>
-                            <th>FATHER's NAME</th>
-                            <th>MOTHER's NAME</th>
-                            <th>MOBILE</th>
-                            <th>DATE_OF_BIRTH</th>
+                            <th>FIRST_NAME</th>
+                            <th>MIDDLE_NAME</th>
+                            <th>LAST_NAME</th>
                             <th>GENDER</th>
-                            <th>VILLAGE</th>
-                            <th>POST</th>
-                            <th>PIN_CODE</th>
-                            <th>DISTRICT</th>
-                            <th>STATE</th>
-                            <th>BED_NUMBER</th>
-                            <th>OXYGEN_AMOUNT</th>
-                            <th>ADMIT_DATE</th>
-                            <th>MESSAGE</th>
-                            <th>ACCEPT</th>
-                            <th>REJECT</th>
+                            <th>AGE</th>
+                            <th>MOBILE_NUMBER</th>
+                            <th>PLACE</th>
+                            <th>LANDMARK</th>
+                            <th>AREA</th>
+                            <th>STREET</th>
+                            <th>BOOKED_DATE</th>
+                            <th>APPROVE</th>
                             <th>REMOVE</th>
                         </tr>
                     </thead>
                     <tbody>
-                       <?php
+                        <?php
                           while ($row = mysqli_fetch_assoc($result)) {
                               // Set default image if profile_pic is empty or the file doesn't exist
                               $profilePic = !empty($row['profile_pic']) && file_exists($row['profile_pic']) ? $row['profile_pic'] : 'default-profile.jpg';
                        ?>
                         <tr>
-                            <td><?php echo $row['sr_no']; ?></td>
-                           <!-- <td>
+                            <td><?php echo $row['sr_no.']; ?></td>
+                            <!-- <td>
                                <?php 
                                     $photo_path = !empty($photo_path) ? $photo_path : 'Uploads/default-profile.jpg'; 
                                ?>
@@ -107,27 +102,21 @@ $result = mysqli_query($con, $query);
                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
                            </td> -->
 
-                        
-                            <td><?php echo $row['patient_name']; ?></td>
-                            <td><?php echo $row['father_name']; ?></td>
-                            <td><?php echo $row['mother_name']; ?></td>
-                            <td><?php echo $row['mobile']; ?></td>
-                            <td><?php echo $row['dob']; ?></td>
+
+                            <td><?php echo $row['firstname']; ?></td>
+                            <td><?php echo $row['middlename']; ?></td>
+                            <td><?php echo $row['lastname']; ?></td>
                             <td><?php echo $row['gender']; ?></td>
-                            <td><?php echo $row['village']; ?></td>
-                            <td><?php echo $row['post']; ?></td>
-                            <td><?php echo $row['pincode']; ?></td>
-                            <td><?php echo $row['district']; ?></td>
-                            <td><?php echo $row['state']; ?></td>
-                            <td><?php echo $row['bed_number']; ?></td>
-                            <td><?php echo $row['amount_oxygen']; ?></td>
-                            <td><?php echo $row['admit_date']; ?></td>
-                            <td><?php echo $row['message']; ?></td>
+                            <td><?php echo $row['age']; ?></td>
+                            <td><?php echo $row['mobile']; ?></td>
+                            <td><?php echo $row['place']; ?></td>
+                            <td><?php echo $row['landmark']; ?></td>
+                            <td><?php echo $row['area']; ?></td>
+                            <td><?php echo $row['street']; ?></td>
+                            <td><?php echo $row['booked_at']; ?></td>
 
-                            <td><button class="btn btn-success btn-sm">ACCEPT</button></td>
-                            <td><button class="btn btn-primary btn-sm">REJECT</button></td>
-                            <td><button class="btn btn-danger btn-sm">REMOVE</button></td>
-
+                            <td><button class="btn btn-primary btn-sm">APPROVE</button></td>
+                            <td><button class="btn btn-danger btn-sm">DELETE</button></td>
                         </tr>
                         <?php
                           }

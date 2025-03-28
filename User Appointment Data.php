@@ -113,8 +113,14 @@ if (isset($_POST['update'])) {
 </head>
 
 <body>
+    <div class="head">
+        <h1 class="text-center mb-4"><b><u>CHARAK SEVA HOSPITAL</u></b>
+            <hr>
+        </h1>
+
+    </div><br>
     <div class="container">
-        <h2 class="text-center mb-4"><b><u>CHARAK SEVA HOSPITAL</u></b></h2>
+        <h2 CLASS="text-center "><u>VIEW APPOINMENT DATA</u></h2><br>
         <form method="POST">
             <div class="mb-3">
                 <input type="number" class="form-control" name="mobile" maxlength="10" required
@@ -133,7 +139,7 @@ if (isset($_POST['update'])) {
                 <span
                     class="text-danger"><?= htmlspecialchars($userData['firstname']) . " " . htmlspecialchars($userData['middlename']) . " " . htmlspecialchars($userData['lastname']) ?></span>
             </h2>
-            <form method="POST">
+            <form method="post">
                 <h6>NAME :</h6>
                 <div class="row mb-3">
                     <div class="col-md-4">

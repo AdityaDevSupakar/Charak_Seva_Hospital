@@ -3,7 +3,7 @@ $con = mysqli_connect("localhost", "root", "", "d_hms");
 if (!$con) {
     die("Sorry, something went wrong connecting to the database.");
 }
-$query = "SELECT * FROM bed_booking";
+$query = "SELECT * FROM oxygen_requests";
 $result = mysqli_query($con, $query);
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ $result = mysqli_query($con, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTACT US LIST</title>
+    <title>OXYGEN REQUESTS LIST</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -64,7 +64,7 @@ $result = mysqli_query($con, $query);
 
     <section class="bg-body-secondary">
         <div class="row g-4">
-            <h1 class="text-center font-arial-black"><b><u>CONTACT US LIST</u></b></h1>
+            <h1 class="text-center font-arial-black"><b><u>OXYGEN REQUESTS LIST</u></b></h1>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped text-center">
                     <thead class="table-dark">
@@ -73,15 +73,20 @@ $result = mysqli_query($con, $query);
                             <th>PATIENT's NAME</th>
                             <th>FATHER's NAME</th>
                             <th>MOTHER's NAME</th>
-                            <th>D.O.B</th>
+                            <th>MOBILE</th>
+                            <th>DATE_OF_BIRTH</th>
                             <th>GENDER</th>
                             <th>VILLAGE</th>
                             <th>POST</th>
+                            <th>PIN_CODE</th>
                             <th>DISTRICT</th>
                             <th>STATE</th>
-                            <th>PINCODE</th>
-                            <th>LANDMARK</th>
-                            <th>REASON</th>
+                            <th>BED_NUMBER</th>
+                            <th>OXYGEN_AMOUNT</th>
+                            <th>ADMIT_DATE</th>
+                            <th>MESSAGE</th>
+                            <th>ACCEPT</th>
+                            <th>REJECT</th>
                             <th>REMOVE</th>
                         </tr>
                     </thead>
@@ -103,21 +108,25 @@ $result = mysqli_query($con, $query);
                            </td> -->
 
 
-                            <td><?php echo $row['name']; ?></td>
+                            <td><?php echo $row['patient_name']; ?></td>
                             <td><?php echo $row['father_name']; ?></td>
                             <td><?php echo $row['mother_name']; ?></td>
+                            <td><?php echo $row['mobile']; ?></td>
                             <td><?php echo $row['dob']; ?></td>
                             <td><?php echo $row['gender']; ?></td>
                             <td><?php echo $row['village']; ?></td>
                             <td><?php echo $row['post']; ?></td>
+                            <td><?php echo $row['pincode']; ?></td>
                             <td><?php echo $row['district']; ?></td>
                             <td><?php echo $row['state']; ?></td>
-                            <td><?php echo $row['pincode']; ?></td>
-                            <td><?php echo $row['landmark']; ?></td>
-                            <td><?php echo $row['reason']; ?></td>
+                            <td><?php echo $row['bed_number']; ?></td>
+                            <td><?php echo $row['amount_oxygen']; ?></td>
+                            <td><?php echo $row['admit_date']; ?></td>
+                            <td><?php echo $row['message']; ?></td>
 
-
-                            <td><button class="btn btn-danger btn-sm">DELETE</button></td>
+                            <td><button class="btn btn-danger btn-sm">ACCEPT</button></td>
+                            <td><button class="btn btn-danger btn-sm">REJECT</button></td>
+                            <td><button class="btn btn-danger btn-sm">REMOVE</button></td>
 
                         </tr>
                         <?php

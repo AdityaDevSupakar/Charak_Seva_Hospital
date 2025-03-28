@@ -5,7 +5,7 @@ if (!$con) {
 }
 $query = "SELECT * FROM doctors";
 $result = mysqli_query($con, $query);
-?> 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,17 +27,17 @@ $result = mysqli_query($con, $query);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-        }
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        overscroll-behavior-y: none;
+    }
 
-        #b1 {
-            border-radius: 5;
-        }
+    #b1 {
+        border-radius: 5;
+    }
     </style>
 </head>
 
@@ -57,7 +57,7 @@ $result = mysqli_query($con, $query);
                 <div class="tenth"></div>
                 <div class="eleventh"></div>
                 <div class="twelfth"></div>
-             </div>
+            </div>
         </div>
         <hr>
     </header>
@@ -97,17 +97,19 @@ $result = mysqli_query($con, $query);
                         </tr>
                     </thead>
                     <tbody>
-                       <?php
+                        <?php
                           while ($row = mysqli_fetch_assoc($result)) {
                               // Set default image if profile_pic is empty or the file doesn't exist
-                              $profilePic = !empty($row['profile_pic']) && file_exists($row['profile_pic']) ? $row['profile_pic'] : 'default-profile.jpg';
+                            //   $profilePic = !empty($row['profile_pic']) && file_exists($row['profile_pic']) ? $row['profile_pic'] : 'default-profile.jpg';
                        ?>
                         <tr>
                             <td><?php echo $row['sr_no']; ?></td>
                             <td>
-                               <img src="<?php echo $profilePic; ?>" alt="Profile Picture" 
-                                           onerror="this.onerror=null;this.src='default-profile.jpg';" 
-                                           style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                <!-- <img src="<?php echo $profilePic; ?>" alt="Profile Picture"
+                                    onerror="this.onerror=null;this.src='default-profile.jpg';"
+                                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;"> -->
+                                <img src="<?= $row['profile_pic']; ?>" alt="Profile Picture">
+
 
 
                             </td>
@@ -132,7 +134,8 @@ $result = mysqli_query($con, $query);
                             <td><?php echo $row['time_to']; ?></td>
                             <td><?php echo $row['user_id']; ?></td>
                             <td><?php echo $row['password']; ?></td>
-                            <td><button class="btn btn-primary btn-sm">EDIT</button></td>
+                            <td><button class=" btn btn-primary btn-sm">EDIT</button>
+                            </td>
                             <td><button class="btn btn-danger btn-sm">DELETE</button></td>
                         </tr>
                         <?php
@@ -140,10 +143,10 @@ $result = mysqli_query($con, $query);
                         ?>
                     </tbody>
                 </table><br>
-                <a href="http://localhost/Charak%20Seva%20Hospital/Add%20Doctor.html" class="btn btn-secondary w-50" 
-                   style="border-radius: 15px; border-color: red; padding: 10px 20px; justify-content: center; align-items: center;">
-                   Add New
-                </a>              
+                <a href="http://localhost/Charak%20Seva%20Hospital/Add%20Doctor.html" class="btn btn-secondary w-50"
+                    style="border-radius: 15px; border-color: red; padding: 10px 20px; justify-content: center; align-items: center;">
+                    Add New
+                </a>
             </div><br>
     </section>
 
