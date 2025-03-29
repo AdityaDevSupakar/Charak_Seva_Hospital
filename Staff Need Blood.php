@@ -47,7 +47,7 @@ $result = mysqli_query($con, $query);
 
 <body>
     <section class="bg-body-secondary">
-        <div class="container mt-5">
+        <div class=" mt-5">
             <h1 class="text-center"><b><u>BLOOD REQUESTS LIST</u></b></h1>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped text-center">
@@ -65,7 +65,10 @@ $result = mysqli_query($con, $query);
                             <th>HOSPITAL</th>
                             <th>REQUESTED_DATE</th>
                             <th>STATUS</th>
-                            <th>ACTIONS</th>
+                            <th>ACCEPT</th>
+                            <th>REJECT</th>
+                            <th>REMOVE</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -90,12 +93,14 @@ $result = mysqli_query($con, $query);
                                     <button type="button"
                                         onclick="confirmAction('approve', '<?php echo $row['sr_no']; ?>')"
                                         class="btn btn-success btn-sm">Approve</button>
-                                    <button type="button"
-                                        onclick="confirmAction('decline', '<?php echo $row['sr_no']; ?>')"
-                                        class="btn btn-secondary btn-sm">Decline</button>
-                                    <button type="button"
-                                        onclick="confirmAction('delete', '<?php echo $row['sr_no']; ?>')"
-                                        class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                            <td>
+                                <button type="button" onclick="confirmAction('decline', '<?php echo $row['sr_no']; ?>')"
+                                    class="btn btn-secondary btn-sm">Decline</button>
+                            </td>
+                            <td>
+                                <button type="button" onclick="confirmAction('delete', '<?php echo $row['sr_no']; ?>')"
+                                    class="btn btn-danger btn-sm">Delete</button>
                                 </form>
                             </td>
                         </tr>

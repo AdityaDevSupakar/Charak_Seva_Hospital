@@ -3,9 +3,29 @@ $con = mysqli_connect("localhost", "root", "", "d_hms");
 if (!$con) {
     die("Sorry, something went wrong connecting to the database.");
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'], $_POST['id'])) {
+    $id = mysqli_real_escape_string($con, $_POST['id']);
+    $action = $_POST['action'];
+
+    if ($action == 'approve') {
+        $query = "UPDATE careers SET status='Approved' WHERE sr_no='$id'";
+    } elseif ($action == 'decline') {
+        $query = "UPDATE careers SET status='Declined' WHERE sr_no='$id'";
+    } elseif ($action == 'delete') {
+        $query = "DELETE FROM careers WHERE sr_no='$id'";
+    }
+
+    if (mysqli_query($con, $query)) {
+        echo "<script>alert('Action performed successfully!'); window.location.href='" . $_SERVER['PHP_SELF'] . "';</script>";
+    } else {
+        echo "<script>alert('Error performing action.');</script>";
+    }
+}
+
 $query = "SELECT * FROM careers";
 $result = mysqli_query($con, $query);
-?> 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,18 +47,26 @@ $result = mysqli_query($con, $query);
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-        }
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        overscroll-behavior-y: none;
+    }
 
-        #b1 {
-            border-radius: 5;
-        }
+    #b1 {
+        border-radius: 5;
+    }
     </style>
+    <script>
+    function confirmAction(action, id) {
+        if (confirm("Are you sure you want to " + action + " this request?")) {
+            document.getElementById('action-' + id).value = action;
+            document.getElementById('action-form-' + id).submit();
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -57,7 +85,7 @@ $result = mysqli_query($con, $query);
                 <div class="tenth"></div>
                 <div class="eleventh"></div>
                 <div class="twelfth"></div>
-             </div>
+            </div>
         </div>
         <hr>
     </header>
@@ -77,20 +105,22 @@ $result = mysqli_query($con, $query);
                             <th>EMAIL</th>
                             <th>POST</th>
                             <th>CV</th>
-                            <th>APPLIED AT</th>
+                            <th>APPLIED_DATE</th>
+                            <th>STATUS</th>
                             <th>ACCEPT</th>
-                            <th>DECLINE</th>
+                            <th>REJECT</th>
+                            <th>REMOVE</th>
                         </tr>
                     </thead>
                     <tbody>
-                       <?php
+                        <?php
                           while ($row = mysqli_fetch_assoc($result)) {
                               // Set default image if profile_pic is empty or the file doesn't exist
                               $profilePic = !empty($row['profile_pic']) && file_exists($row['profile_pic']) ? $row['profile_pic'] : 'default-profile.jpg';
                        ?>
                         <tr>
-                            <td><?php echo $row['sr_no.']; ?></td>
-                           <!-- <td>
+                            <td><?php echo $row['sr_no']; ?></td>
+                            <!-- <td>
                                <?php 
                                     $photo_path = !empty($photo_path) ? $photo_path : 'Uploads/default-profile.jpg'; 
                                ?>
@@ -99,7 +129,7 @@ $result = mysqli_query($con, $query);
                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
                            </td> -->
 
-                        
+
                             <td><?php echo $row['firstname']; ?></td>
                             <td><?php echo $row['middlename']; ?></td>
                             <td><?php echo $row['lastname']; ?></td>
@@ -108,9 +138,24 @@ $result = mysqli_query($con, $query);
                             <td><?php echo $row['position']; ?></td>
                             <td><?php echo $row['cv']; ?></td>
                             <td><?php echo $row['created_at']; ?></td>
-
-                            <td><button class="btn btn-primary btn-sm">ACCEPT</button></td>
-                            <td><button class="btn btn-danger btn-sm">REJECT</button></td>
+                            <td><?php echo $row['status']; ?></td>
+                            <td>
+                                <form method="post" id="action-form-<?php echo $row['sr_no']; ?>">
+                                    <input type="hidden" name="id" value="<?php echo $row['sr_no']; ?>">
+                                    <input type="hidden" name="action" id="action-<?php echo $row['sr_no']; ?>">
+                                    <button type="button"
+                                        onclick="confirmAction('approve', '<?php echo $row['sr_no']; ?>')"
+                                        class="btn btn-success btn-sm">Approve</button>
+                            </td>
+                            <td>
+                                <button type="button" onclick="confirmAction('decline', '<?php echo $row['sr_no']; ?>')"
+                                    class="btn btn-secondary btn-sm">Decline</button>
+                            </td>
+                            <td>
+                                <button type="button" onclick="confirmAction('delete', '<?php echo $row['sr_no']; ?>')"
+                                    class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
 
                         </tr>
                         <?php
