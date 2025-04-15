@@ -28,7 +28,7 @@
              $_SESSION['user_id'] = $row['id'];
              $_SESSION['full_name'] = $row['full_name'];
              echo "Login successful!";
-             header("Location: User Panel.php");
+             header("Location: User Panel.html");
             // Redirect to a dashboard or home page
         } else {
             echo "<script>alert('Ooo sit!! Invalid Username or Password'); window.location.href = 'User Login.html';</script>";
