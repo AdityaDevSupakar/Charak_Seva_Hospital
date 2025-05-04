@@ -203,7 +203,7 @@ if ($stmt->execute()) {
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="middlename" name="middlename"
-                                value="<?= htmlspecialchars($userData['middlename']) ?>" readonly required>
+                                value="<?= htmlspecialchars($userData['middlename']) ?>" readonly>
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="lastname" name="lastname"
@@ -218,7 +218,7 @@ if ($stmt->execute()) {
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="f_middlename" name="f_middlename"
-                                value="<?= htmlspecialchars($userData['f_middlename']) ?>" readonly required>
+                                value="<?= htmlspecialchars($userData['f_middlename']) ?>" readonly>
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="f_lastname" name="f_lastname"
@@ -233,7 +233,7 @@ if ($stmt->execute()) {
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="m_middlename" name="m_middlename"
-                                value="<?= htmlspecialchars($userData['m_middlename']) ?>" readonly required>
+                                value="<?= htmlspecialchars($userData['m_middlename']) ?>" readonly>
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="m_lastname" name="m_lastname"
